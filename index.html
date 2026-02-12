@@ -1,1151 +1,444 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta name="google-site-verification" content="87RAh7hizX5A5SjtOabUJPHjV2aDdeTw3J0TDf-r3_g" />
-    <meta charset="UTF-8">
-    <title>CyberSlash Solutions - Cybersécurité & Services Informatiques</title>
-<meta name="description" content="CyberSlash Solutions : Développement web, services informatiques & cybersécurité.">
-<meta name="keywords" content="cybersécurité, pentest, développement web, services informatiques, sécurité informatique">
-
-<!-- Open Graph pour réseaux sociaux -->
-<meta property="og:title" content="CyberSlash Solutions">
-<meta property="og:description" content="Expert en cybersécurité et services informatiques">
-<meta property="og:url" content="https://cyberslash.netlify.app">
-<meta property="og:type" content="website">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberSlash Solutions | Cybersécurité & Développement Web</title>
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%2300d9ff'/><stop offset='50%25' style='stop-color:%230066ff'/><stop offset='100%25' style='stop-color:%238000ff'/></linearGradient></defs><circle cx='32' cy='32' r='30' fill='%230a0e27' opacity='0.9'/><path d='M32 8 L50 16 L50 32 Q50 48 32 56 Q14 48 14 32 L14 16 Z' fill='url(%23g)' opacity='0.95'/><path d='M32 8 L50 16 L50 32 Q50 48 32 56 Q14 48 14 32 L14 16 Z' fill='none' stroke='%2300d9ff' stroke-width='1.5' opacity='0.7'/><rect x='28' y='28' width='8' height='10' rx='1' fill='%230a0e27' opacity='0.8'/><circle cx='32' cy='25' r='3.5' fill='none' stroke='%230a0e27' stroke-width='2' opacity='0.8'/></svg>">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --accent: #00ff88;
-            --accent-glow: rgba(0, 255, 136, 0.3);
-            --text: #ffffff;
-            --text-dim: #b0b0b0;
-        }
-
-  /* ========== BANNIÈRE MOBILE WARNING ========== */
-        .mobile-warning {
-            display: none;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 15px 10px;
-            font-size: 0.85rem;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 10001;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            line-height: 1.6;
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .mobile-warning strong {
-            color: var(--accent);
-            font-size: 1rem;
-        }
-
-        .mobile-warning small {
-            display: block;
-            margin-top: 5px;
-            opacity: 0.9;
-            font-size: 0.75rem;
-        }
-
-        /* Affiche UNIQUEMENT sur mobile en mode portrait */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .mobile-warning {
-                display: block;
-            }
-            
-            /* Décale tout le contenu pour ne pas cacher le nav */
-            body {
-                padding-top: 75px;
-            }
-
-            nav {
-                top: 90px; /* Décale la nav sous la bannière */
-            }
-        }
-        /* ========== FIN BANNIÈRE MOBILE ========== */
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.08) 0%, transparent 50%);
-        }
-
-        .bg-animation::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background-image: 
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        nav {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            padding: 15px 40px;
-            border-radius: 50px;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: slideDown 0.6s ease-out;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        nav ul {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover {
-            color: var(--accent);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .cyber-quote {
-            position: fixed !important;
-            top: 90px !important;
-            right: 20px !important;
-            max-width: 280px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-left: 3px solid var(--accent);
-            padding: 12px 18px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-style: italic;
-            z-index: 1001 !important;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .cyber-quote.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .cyber-quote.hide {
-            opacity: 0;
-            transform: translateX(20px);
-        }
-
-        .cyber-quote::before {
-            content: '💡';
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .hero-content {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent), #00ccff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 2s ease-in-out infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { filter: drop-shadow(0 0 10px var(--accent-glow)); }
-            50% { filter: drop-shadow(0 0 20px var(--accent-glow)); }
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            color: var(--text-dim);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, var(--accent), #00ccff);
-            color: #000;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 30px var(--accent-glow);
-        }
-
-        section {
-            padding: 100px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 50px;
-            text-align: center;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .service-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 10px 40px var(--accent-glow);
-        }
-
-        .service-card.clickable::after {
-            content: '📄 Cliquez pour voir les détails';
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.75rem;
-            color: var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .service-card.clickable:hover::after {
-            opacity: 1;
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-
-        .service-card p {
-            color: var(--text-dim);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .portfolio-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.05);
-            border-color: var(--accent);
-        }
-
-        .portfolio-item::after {
-            content: '📄 Voir le projet';
-            position: absolute;
-            bottom: 7px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.75rem;
-            color: var(--accent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .portfolio-item:hover::after {
-            opacity: 1;
-        }
-
-        .portfolio-img {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 200, 255, 0.2));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-        }
-
-        .portfolio-content {
-            padding: 25px;
-        }
-
-        .portfolio-content h3 {
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
-
-        /* MODAL HTML */
-        .html-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .html-modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .html-modal-content {
-            position: relative;
-            width: 90%;
-            height: 90%;
-            max-width: 1200px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--accent);
-            border-radius: 20px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            animation: slideUp 0.4s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .html-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .html-modal-header h3 {
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-
-        .close-modal {
-            background: transparent;
-            border: none;
-            color: var(--text);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 0 10px;
-            line-height: 1;
-        }
-
-        .close-modal:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-        }
-
-        .html-viewer {
-            flex: 1;
-            width: 100%;
-            border: none;
-            border-radius: 10px;
-            background: white;
-        }
-
-        .contact-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 50px;
-            max-width: 600px;
-            margin: 50px auto;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            margin-bottom: 8px;
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        input, textarea, select {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--text);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        select option {
-            background: #1a1a1a;
-            color: var(--text);
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        button[type="submit"] {
-            padding: 15px;
-            background: linear-gradient(135deg, var(--accent), #00ccff);
-            color: #000;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        button[type="submit"]:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 30px var(--accent-glow);
-        }
-
-        button[type="submit"]:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--glass-border);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            color: var(--text);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 15px;
-                font-size: 0.9rem;
-            }
-            
-            nav {
-                padding: 12px 25px;
-            }
-            
-            section {
-                padding: 60px 20px;
-            }
-            
-            .contact-container {
-                padding: 30px;
-            }
-
-            .cyber-quote {
-                display: none;
-            }
-
-            .html-modal-content {
-                width: 95%;
-                height: 95%;
-                padding: 15px;
-            }
-
-            .html-modal-header h3 {
-                font-size: 1.2rem;
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #about {
-            padding: 80px 20px;
-        }
-
-        .about-container {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 50px;
-            flex-wrap: wrap;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 280px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 2px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .about-image:hover::before {
-            opacity: 1;
-        }
-
-        .about-image:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent);
-            box-shadow: 0 15px 50px var(--accent-glow);
-        }
-
-        .avatar-placeholder {
-            width: 180px;
-            height: 180px;
-            background: linear-gradient(135deg, var(--accent), #00ccff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px var(--accent-glow);
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-cta {
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .about-cta::after {
-            content: '📄';
-            font-size: 1.3rem;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 280px;
-        }
-
-        .about-text h2 {
-            text-align: left;
-            margin-bottom: 25px;
-            font-size: 2.5rem;
-        }
-
-        .about-text h2::after {
-            left: 0;
-            transform: translateX(0);
-        }
-
-        .about-text p {
-            color: var(--text-dim);
-            line-height: 1.8;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .about-text .highlight {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        @media (max-width: 768px) {
-            .about-container {
-                gap: 30px;
-            }
-
-            .about-text h2 {
-                text-align: center;
-            }
-
-            .about-text h2::after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .avatar-placeholder {
-                width: 150px;
-                height: 150px;
-                font-size: 4rem;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="87RAh7hizX5A5SjtOabUJPHjV2aDdeTw3J0TDf-r3_g">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberSlash Solutions - Cybersecurite &amp; Developpement Web</title>
+  <meta name="description" content="CyberSlash Solutions : expertise en cybersecurite, developpement web, diagnostic PC et formation. Protegez, creez, evoluez.">
+  <meta name="keywords" content="cybersecurite, pentest, developpement web, services informatiques, securite informatique">
+  <meta property="og:title" content="CyberSlash Solutions">
+  <meta property="og:description" content="Expert en cybersecurite et services informatiques">
+  <meta property="og:url" content="https://cyberslash.netlify.app">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230a0a0f'/><path d='M32 8L50 16V32Q50 48 32 56Q14 48 14 32V16Z' fill='%2300ff88' opacity='.85'/><rect x='28' y='28' width='8' height='10' rx='1' fill='%230a0a0f'/><circle cx='32' cy='25' r='3.5' fill='none' stroke='%230a0a0f' stroke-width='2'/></svg>">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="bg-animation"></div>
 
-    <div class="cyber-quote" id="cyberQuote"></div>
-    <div class="mobile-warning">
-    <strong>⚠️ Meilleure expérience</strong><br>
-    Tournez votre téléphone en mode paysage 🔄 ou ouvrez sur PC 💻
-    <small>⚙️ Ergonomie mobile en cours d'optimisation</small>
-</div>
+  <!-- SVG Icon Sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    </symbol>
+    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+    </symbol>
+    <symbol id="ico-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+    </symbol>
+    <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>
+    </symbol>
+    <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/>
+    </symbol>
+    <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </symbol>
+    <symbol id="ico-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+    </symbol>
+    <symbol id="ico-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+    </symbol>
+    <symbol id="ico-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+    </symbol>
+    <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/>
+    </symbol>
+    <symbol id="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+    </symbol>
+    <symbol id="ico-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+    </symbol>
+    <symbol id="ico-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+    </symbol>
+    <symbol id="ico-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+    </symbol>
+    <symbol id="ico-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+    </symbol>
+    <symbol id="ico-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </symbol>
+    <symbol id="ico-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </symbol>
+    <symbol id="ico-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </symbol>
+    <symbol id="ico-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+    </symbol>
+    <symbol id="ico-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+    </symbol>
+  </svg>
 
-    <!-- MODAL HTML -->
-    <div class="html-modal" id="htmlModal">
-        <div class="html-modal-content">
-            <div class="html-modal-header">
-                <h3 id="htmlTitle">Document</h3>
-                <button class="close-modal" onclick="closeHtmlModal()">×</button>
-            </div>
-            <iframe class="html-viewer" id="htmlViewer"></iframe>
-        </div>
+  <!-- Skip link -->
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" aria-label="Navigation principale">
+    <a href="#" class="nav__logo" aria-label="CyberSlash Solutions - Accueil">
+      <svg class="ico" aria-hidden="true"><use href="#ico-shield"/></svg>
+      Cyber<span class="nav__logo-accent">Slash</span>
+    </a>
+
+    <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu de navigation">
+      <svg class="ico" aria-hidden="true"><use href="#ico-menu"/></svg>
+    </button>
+
+    <ul class="nav__links" id="nav-menu" role="list">
+      <li><a href="#about" class="nav__link">A propos</a></li>
+      <li><a href="#services" class="nav__link">Services</a></li>
+      <li><a href="#portfolio" class="nav__link">Projets</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal" id="page-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal__content">
+      <header class="modal__header">
+        <h2 class="modal__title" id="modal-title">Document</h2>
+        <button type="button" class="modal__close" id="modal-close" aria-label="Fermer">
+          <svg class="ico" aria-hidden="true"><use href="#ico-x"/></svg>
+        </button>
+      </header>
+      <iframe class="modal__iframe" id="modal-iframe" title="Contenu de la page"></iframe>
     </div>
+  </div>
 
-    <nav>
-        <ul>
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <!-- ===== MAIN ===== -->
+  <main id="main">
 
-    <section id="accueil" class="hero">
-        <div class="hero-content">
-            <h1>CyberSlash Solutions</h1>
-            <p>Cybersécurité et Informatique/Dev | Protection des données et création de sites web professionnels sur mesure.</p>
-            <a href="#contact" class="cta-button">Prêt à lancer votre projet ?</a>
+    <!-- ===== HERO ===== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero__inner">
+          <div class="terminal-prompt" aria-hidden="true">
+            <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">./welcome.sh</span>
+          </div>
+
+          <div class="hero__badge">
+            <span class="hero__badge-dot" aria-hidden="true"></span>
+            Disponible pour vos projets
+          </div>
+
+          <h1 id="hero-title" class="hero__title">
+            Cybersecurite<br>
+            <span class="hero__title-accent">&amp; Developpement Web</span>
+          </h1>
+
+          <p class="hero__desc">
+            Solutions sur mesure pour <strong>proteger</strong>, <strong>creer</strong> et <strong>optimiser</strong> votre presence numerique. De l'audit de securite au developpement d'applications.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#services" class="btn btn--primary">
+              <svg class="ico" aria-hidden="true"><use href="#ico-shield"/></svg>
+              Decouvrir nos services
+            </a>
+            <a href="#contact" class="btn btn--outline">
+              <svg class="ico" aria-hidden="true"><use href="#ico-mail"/></svg>
+              Nous contacter
+            </a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="about">
-        <div class="about-container fade-in">
-            <div class="about-image" data-page="qui-suis-je" data-title="Qui suis-je ?">
-                <div class="avatar-placeholder">📑</div>
-                <div class="about-cta">Plus d'informations ici</div>
-            </div>
-            <div class="about-text">
-                <h2>Qui suis-je ?</h2>
-                <p>
-                    Passionné de <span class="highlight">cybersécurité</span> et de <span class="highlight">développement web</span>, 
-                    je mets mes compétences au service de la protection de vos données et de la création de vos projets digitaux.
-                </p>
-                <p>
-                    Actuellement en formation continue, je développe mes expertises à travers des projets concrets 
-                    et des collaborations avec des acteurs du domaine.
-                </p>
-            </div>
+    <!-- ===== 01. A PROPOS ===== -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container fade-in">
+        <div class="terminal-prompt" aria-hidden="true">
+          <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/about</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat profil.txt</span>
         </div>
+
+        <header class="section-header">
+          <span class="section-header__number">01.</span>
+          <h2 id="about-title" class="section-header__title">Qui suis-je ?</h2>
+          <span class="section-header__line" aria-hidden="true"></span>
+        </header>
+
+        <div class="about-grid">
+          <div class="about__text">
+            <p>
+              Je suis <strong>Killian</strong>, passionne de <strong>cybersecurite</strong> et de <strong>developpement web</strong>. Fondateur de CyberSlash Solutions, j'accompagne entreprises et particuliers dans la securisation de leurs systemes et la creation de solutions numeriques performantes.
+            </p>
+            <p>
+              Mon approche combine rigueur technique et pedagogie pour rendre la securite informatique accessible a tous. Chaque projet est une mission : <strong>comprendre</strong>, <strong>proteger</strong>, <strong>construire</strong>.
+            </p>
+            <button type="button" class="btn btn--outline" data-page="qui-suis-je" data-title="Qui suis-je ?" style="width:fit-content;margin-top:0.5rem" tabindex="0">
+              <svg class="ico" aria-hidden="true"><use href="#ico-user"/></svg>
+              En savoir plus
+            </button>
+          </div>
+          <div class="about__stats" role="list" aria-label="Chiffres cles">
+            <div class="stat-card" role="listitem">
+              <div class="stat-card__value">5+</div>
+              <div class="stat-card__label">Annees d'experience</div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card__value">50+</div>
+              <div class="stat-card__label">Projets realises</div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card__value">100%</div>
+              <div class="stat-card__label">Engagement qualite</div>
+            </div>
+            <div class="stat-card" role="listitem">
+              <div class="stat-card__value">24/7</div>
+              <div class="stat-card__label">Veille securite</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="services">
-        <h2 class="fade-in">Mes Services</h2>
-        <div class="services-grid">
-            <div class="service-card fade-in clickable" data-page="cybersecurite" data-title="Cybersécurité">
-                <span class="service-icon">🛡️</span>
-                <h3>Cybersécurité</h3>
-                <p>Actuellement en mode apprentissage… Mes services arrivent bientôt !</p>
-            </div>
-            <div class="service-card fade-in clickable" data-page="dev-web" data-title="Développement Web">
-                <span class="service-icon">💻</span>
-                <h3>Développement Web</h3>
-                <p>Création de sites vitrines informatifs pour valoriser votre activité et votre image en ligne.</p>
-            </div>
-            <div class="service-card fade-in clickable" data-page="reparation-pc" data-title="Diagnostic PC">
-                <span class="service-icon">🛠️</span>
-                <h3>Diagnostique PC</h3>
-                <p>Diagnostic informatique, analyse des problèmes, optimisation des performances et interventions ciblées.</p>
-            </div>
-           <!-- <div class="service-card fade-in clickable" data-page="osint-audit" data-title="osint-audit">
-                <span class="service-icon">📱</span>
-                <h3>Osint-audit</h3>
-                <p>analyse approfondie des informations publiques pour identifier risques, expositions et opportunités.</p>
-            </div>-->
-            <div class="service-card fade-in clickable" data-page="formation" data-title="Formation">
-                <span class="service-icon">🎓</span>
-                <h3>Formation</h3>
-                <p>Sensibilisation et apprentissage en cybersécurité avec CyberFidelis, l'initiative n°1 en France !</p>
-            </div>
-            <!--<div class="service-card fade-in clickable" data-page="intervention-rapide" data-title="Intervention Rapide">
-                <span class="service-icon">⚡</span>
-                <h3>Intervention Rapide</h3>
-                <p>Disponible pour des interventions d'urgence en cas d'incident ou panne critique.</p>-->
-            </div>
+    <!-- ===== 02. SERVICES ===== -->
+    <section id="services" aria-labelledby="services-title">
+      <div class="container fade-in">
+        <div class="terminal-prompt" aria-hidden="true">
+          <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/services</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">ls -la</span>
         </div>
+
+        <header class="section-header">
+          <span class="section-header__number">02.</span>
+          <h2 id="services-title" class="section-header__title">Mes Services</h2>
+          <span class="section-header__line" aria-hidden="true"></span>
+        </header>
+
+        <div class="cards-grid">
+          <!-- Cybersecurite -->
+          <article class="card" data-page="cybersecurite" data-title="Cybersecurite" tabindex="0" role="button" aria-label="Voir les details du service Cybersecurite">
+            <div class="card__icon-wrap">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-shield"/></svg>
+            </div>
+            <h3 class="card__title">Cybersecurite</h3>
+            <p class="card__desc">Pentests, audits de vulnerabilites, durcissement de systemes et reponse aux incidents. Protegez vos actifs numeriques.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- Developpement Web -->
+          <article class="card" data-page="dev-web" data-title="Developpement Web" tabindex="0" role="button" aria-label="Voir les details du service Developpement Web">
+            <div class="card__icon-wrap card__icon-wrap--blue">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-code"/></svg>
+            </div>
+            <h3 class="card__title">Developpement Web</h3>
+            <p class="card__desc">Sites vitrines, applications web, e-commerce. Code propre, accessible, performant et optimise pour le referencement.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- Diagnostic PC -->
+          <article class="card" data-page="reparation-pc" data-title="Diagnostic &amp; Reparation PC" tabindex="0" role="button" aria-label="Voir les details du service Diagnostic et Reparation PC">
+            <div class="card__icon-wrap">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-wrench"/></svg>
+            </div>
+            <h3 class="card__title">Diagnostic &amp; Reparation PC</h3>
+            <p class="card__desc">Diagnostic materiel et logiciel, optimisation, suppression de malwares, recuperation de donnees et maintenance preventive.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- Formation -->
+          <article class="card" data-page="formation" data-title="Formation" tabindex="0" role="button" aria-label="Voir les details du service Formation">
+            <div class="card__icon-wrap card__icon-wrap--blue">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-graduation"/></svg>
+            </div>
+            <h3 class="card__title">Formation</h3>
+            <p class="card__desc">Sensibilisation a la cybersecurite, bonnes pratiques numeriques, formation aux outils et a l'hygiene informatique.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- OSINT & Audit -->
+          <article class="card" data-page="osint-audit" data-title="OSINT &amp; Audit" tabindex="0" role="button" aria-label="Voir les details du service OSINT et Audit">
+            <div class="card__icon-wrap">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-search"/></svg>
+            </div>
+            <h3 class="card__title">OSINT &amp; Audit</h3>
+            <p class="card__desc">Renseignement en sources ouvertes, cartographie de la surface d'attaque, analyse d'empreinte numerique.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- Intervention rapide -->
+          <article class="card" data-page="intervention-rapide" data-title="Intervention Rapide" tabindex="0" role="button" aria-label="Voir les details du service Intervention Rapide">
+            <div class="card__icon-wrap card__icon-wrap--blue">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-monitor"/></svg>
+            </div>
+            <h3 class="card__title">Intervention Rapide</h3>
+            <p class="card__desc">Depannage informatique a distance ou sur site. Resolution rapide de vos problemes techniques urgents.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="portfolio">
-        <h2 class="fade-in">Projets Réalisés</h2>
-        <div class="portfolio-grid">
-            <div class="portfolio-item fade-in" data-page="foxyhack" data-title="FoxyHack">
-                <div class="portfolio-img">🪖</div>
-                <div class="portfolio-content">
-                    <h3>FoxyHack</h3>
-                    <p>Un challenge de cybersécurité pour la Base 105 militaire d'Évreux.</p>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in" data-page="soc-fenrir" data-title="SOC Fenrir">
-                <div class="portfolio-img">🕵🏼</div>
-                <div class="portfolio-content">
-                    <h3>SOC Fenrir</h3>
-                    <p>Participation au développement d'un centre opérationnel de cybersécurité (SOC).</p>
-                </div>
-            </div>
-            <div class="portfolio-item fade-in" data-page="projets-annexes" data-title="Projets Annexes">
-                <div class="portfolio-img">📚</div>
-                <div class="portfolio-content">
-                    <h3>Projets Annexes</h3>
-                    <p>Puissance 4 web, développement d'un jeu dans un shell, GroupieTracker, …</p>
-                </div>
-            </div>
+    <!-- ===== 03. PORTFOLIO ===== -->
+    <section id="portfolio" aria-labelledby="portfolio-title">
+      <div class="container fade-in">
+        <div class="terminal-prompt" aria-hidden="true">
+          <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/projets</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">find . -type d</span>
         </div>
+
+        <header class="section-header">
+          <span class="section-header__number">03.</span>
+          <h2 id="portfolio-title" class="section-header__title">Projets Realises</h2>
+          <span class="section-header__line" aria-hidden="true"></span>
+        </header>
+
+        <div class="cards-grid">
+          <!-- FoxyHack -->
+          <article class="card" data-page="foxyhack" data-title="FoxyHack" tabindex="0" role="button" aria-label="Voir le projet FoxyHack">
+            <div class="card__icon-wrap">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-swords"/></svg>
+            </div>
+            <h3 class="card__title">FoxyHack</h3>
+            <p class="card__desc">Plateforme CTF (Capture The Flag) educative pour l'apprentissage de la cybersecurite par la pratique.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- SOC Fenrir -->
+          <article class="card" data-page="soc-fenrir" data-title="SOC Fenrir" tabindex="0" role="button" aria-label="Voir le projet SOC Fenrir">
+            <div class="card__icon-wrap card__icon-wrap--blue">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-terminal"/></svg>
+            </div>
+            <h3 class="card__title">SOC Fenrir</h3>
+            <p class="card__desc">Centre d'operations de securite (SOC) personnel avec monitoring, detection d'intrusions et reponse aux alertes.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+
+          <!-- Projets Annexes -->
+          <article class="card" data-page="projets-annexes" data-title="Projets Annexes" tabindex="0" role="button" aria-label="Voir les projets annexes">
+            <div class="card__icon-wrap">
+              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-folder"/></svg>
+            </div>
+            <h3 class="card__title">Projets Annexes</h3>
+            <p class="card__desc">Scripts d'automatisation, outils de securite, contributions open-source et experimentations techniques.</p>
+            <span class="card__link-hint" aria-hidden="true">
+              Voir les projets <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
+            </span>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section id="contact">
-        <h2 class="fade-in">Contactez-moi</h2>
-        <div class="contact-container fade-in">
-            <form 
-                class="contact-form" 
-                id="contactForm"
-                action="https://formspree.io/f/xdanyvov"
-                method="POST"
-            >
-                <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input type="text" id="name" name="name" maxlength="100" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="_replyto" required>
-                </div>
-                <div class="form-group">
-                    <label for="service">Service souhaité</label>
-                    <select id="service" name="service" required>
-                        <option value="">-- Sélectionnez un service --</option>
-                        <option value="Cybersécurité">🛡️ Cybersécurité</option>
-                        <option value="Développement Web">💻 Développement Web</option>
-                        <option value="Diagnostic PC">🔧 Diagnostic PC</option>
-                        <!--<option value="Osint-audit">📱 Osint-audit</option>-->
-                        <option value="Formation">🎓 Formation</option>
-                        <!--<option value="Intervention Rapide">⚡ Intervention Rapide</option>-->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" maxlength="5000" required></textarea>
-                </div>
-                
-                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-                <input type="hidden" name="_next" value="https://cyberslash.netlify.app/#contact">
-                <input type="hidden" name="_subject" value="Nouveau message depuis CyberSlash !">
-                
-                <button type="submit" id="submitBtn">Envoyer</button>
-            </form>
-            <div id="successMessage" style="display:none; color: var(--accent); text-align: center; padding: 20px; animation: fadeInUp 0.5s;">
-                ✅ Message envoyé avec succès ! Je vous répondrai rapidement.
-            </div>
-            <div id="errorMessage" style="display:none; color: #ff4444; text-align: center; padding: 20px;">
-                ❌ Erreur lors de l'envoi. Réessayez dans quelques minutes.
-            </div>
+    <!-- ===== 04. CONTACT ===== -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container fade-in">
+        <div class="terminal-prompt" aria-hidden="true">
+          <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/contact</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat README.md</span>
         </div>
+
+        <header class="section-header">
+          <span class="section-header__number">04.</span>
+          <h2 id="contact-title" class="section-header__title">Contactez-moi</h2>
+          <span class="section-header__line" aria-hidden="true"></span>
+        </header>
+
+        <div class="contact-grid">
+          <div class="contact__info">
+            <p>Un projet en tete, une question de securite ou un besoin technique ? N'hesitez pas a me contacter. Je reponds generalement sous 24 heures.</p>
+            <div class="contact__channels">
+              <a href="mailto:contact.cyberslash@gmail.com" class="contact__channel">
+                <svg class="ico ico--accent" aria-hidden="true"><use href="#ico-mail"/></svg>
+                contact.cyberslash@gmail.com
+              </a>
+              <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="contact__channel" target="_blank" rel="noopener noreferrer">
+                <svg class="ico ico--secondary" aria-hidden="true"><use href="#ico-linkedin"/></svg>
+                LinkedIn
+                <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+              </a>
+              <a href="https://github.com/" class="contact__channel" target="_blank" rel="noopener noreferrer">
+                <svg class="ico ico--accent" aria-hidden="true"><use href="#ico-github"/></svg>
+                GitHub
+                <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+              </a>
+            </div>
+          </div>
+
+          <form class="form" action="https://formspree.io/f/xdanyvov" method="POST" id="contact-form" novalidate>
+            <div class="form__group">
+              <label for="form-name" class="form__label">Nom <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <input type="text" id="form-name" name="name" class="form__input" autocomplete="name" required>
+            </div>
+            <div class="form__group">
+              <label for="form-email" class="form__label">Email <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <input type="email" id="form-email" name="email" class="form__input" autocomplete="email" required>
+            </div>
+            <div class="form__group">
+              <label for="form-subject" class="form__label">Sujet</label>
+              <input type="text" id="form-subject" name="subject" class="form__input">
+            </div>
+            <div class="form__group">
+              <label for="form-message" class="form__label">Message <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <textarea id="form-message" name="message" class="form__textarea" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary" id="form-submit">
+              <svg class="ico" aria-hidden="true"><use href="#ico-send"/></svg>
+              Envoyer le message
+            </button>
+            <div id="form-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 CyberSlash Solutions. Tous droits réservés.</p>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/killian-rio-65b879388/" title="LinkedIn">💼</a>
-            <a href="#" title="GitHub">🔗</a>
-            <a href="&" title="Email">📧</a>
-        </div>
-    </footer>
+  </main>
 
-    <script>
-        const cyberQuotes = [
-            "La sécurité à 100% n'existe pas, mais la vigilance doit être permanente.",
-            "Un mot de passe fort vaut mieux qu'un antivirus faible.",
-            "L'erreur humaine est la plus grande faille de sécurité.",
-            "Mieux vaut prévenir une attaque que la subir.",
-            "Un système non mis à jour est une porte ouverte aux hackers.",
-            "La cybersécurité est un marathon, pas un sprint.",
-            "Chaque clic peut être une opportunité ou une menace.",
-            "Le chiffrement est votre meilleur allié en ligne.",
-            "Un backup aujourd'hui évite une catastrophe demain.",
-            "La sécurité commence par la sensibilisation.",
-            "Votre réseau est aussi sûr que son maillon le plus faible.",
-            "Zero Trust : ne jamais faire confiance, toujours vérifier.",
-            "Les hackers ne prennent pas de vacances, votre sécurité non plus.",
-            "Un firewall configuré protège mieux qu'une simple prière.",
-            "La meilleure défense reste une bonne attaque... préventive.",
-            "Votre mot de passe est-il plus fort que votre café du matin ?",
-            "L'authentification à deux facteurs : deux fois plus de sécurité.",
-            "Un audit de sécurité vaut mieux que mille regrets.",
-            "Le HTTPS n'est pas une option, c'est une obligation.",
-            "Chiffrez aujourd'hui ce que vous voulez protéger demain."
-        ];
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer__code" aria-hidden="true">
+        <span>while</span>(true) { <span>protect</span>(); <span>develop</span>(); <span>repeat</span>(); }
+      </p>
+      <p class="footer__copy">&copy; 2025 CyberSlash Solutions - Tous droits reserves.</p>
+      <div class="footer__socials">
+        <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (s'ouvre dans un nouvel onglet)">
+          <svg class="ico" aria-hidden="true"><use href="#ico-linkedin"/></svg>
+        </a>
+        <a href="https://github.com/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub (s'ouvre dans un nouvel onglet)">
+          <svg class="ico" aria-hidden="true"><use href="#ico-github"/></svg>
+        </a>
+        <a href="mailto:contact.cyberslash@gmail.com" class="footer__social" aria-label="Envoyer un email">
+          <svg class="ico" aria-hidden="true"><use href="#ico-mail"/></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
 
-        let currentQuoteIndex = 0;
-        const quoteElement = document.getElementById('cyberQuote');
+  <!-- ===== QUOTE BANNER ===== -->
+  <aside class="quote-banner" aria-label="Conseil cybersecurite" id="quote-banner">
+    <svg class="ico quote-banner__icon" aria-hidden="true"><use href="#ico-lightbulb"/></svg>
+    <span id="quote-text">Activez l'authentification a deux facteurs (2FA) sur tous vos comptes importants.</span>
+  </aside>
 
-        function changeQuote() {
-            quoteElement.classList.remove('show');
-            quoteElement.classList.add('hide');
-            
-            setTimeout(() => {
-                currentQuoteIndex = (currentQuoteIndex + 1) % cyberQuotes.length;
-                quoteElement.textContent = cyberQuotes[currentQuoteIndex];
-                quoteElement.classList.remove('hide');
-                quoteElement.classList.add('show');
-            }, 500);
-        }
+  <!-- ===== BACK TO TOP ===== -->
+  <a href="#" class="back-to-top" aria-label="Retour en haut de page" id="back-to-top">
+    <svg class="ico" aria-hidden="true"><use href="#ico-chevron-up"/></svg>
+  </a>
 
-        if (quoteElement) {
-            quoteElement.textContent = cyberQuotes[0];
-            setTimeout(() => {
-                quoteElement.classList.add('show');
-            }, 100);
-            setInterval(changeQuote, 8000);
-        }
-
-        // GESTION MODAL HTML - Charge les fichiers depuis le dossier pages/
-        function openHtmlModal(pageName, title) {
-            const modal = document.getElementById('htmlModal');
-            const viewer = document.getElementById('htmlViewer');
-            const titleEl = document.getElementById('htmlTitle');
-            
-            titleEl.textContent = title;
-            
-            // Charger le fichier HTML depuis le dossier pages/
-            viewer.src = `pages/${pageName}.html`;
-            
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeHtmlModal() {
-            const modal = document.getElementById('htmlModal');
-            const viewer = document.getElementById('htmlViewer');
-            
-            modal.classList.remove('active');
-            viewer.src = '';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Gestion clics sur les cartes
-        document.querySelectorAll('.service-card.clickable, .portfolio-item, .about-image').forEach(card => {
-            card.addEventListener('click', function() {
-                const pageName = this.getAttribute('data-page');
-                const title = this.getAttribute('data-title');
-                if (pageName) {
-                    openHtmlModal(pageName, title);
-                }
-            });
-        });
-
-        // Fermer avec Echap
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeHtmlModal();
-            }
-        });
-
-        // Fermer en cliquant à l'extérieur
-        document.getElementById('htmlModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeHtmlModal();
-            }
-        });
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
-        const form = document.getElementById('contactForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-
-        if (form) {
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Envoi en cours...';
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: 'POST',
-                        body: new FormData(form),
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-
-                    if (response.ok) {
-                        form.style.display = 'none';
-                        successMessage.style.display = 'block';
-                        form.reset();
-                        
-                        setTimeout(() => {
-                            form.style.display = 'flex';
-                            successMessage.style.display = 'none';
-                            submitBtn.disabled = false;
-                            submitBtn.textContent = 'Envoyer';
-                        }, 10000);
-                    } else {
-                        throw new Error('Erreur serveur');
-                    }
-                } catch (error) {
-                    console.error('Erreur:', error);
-                    errorMessage.style.display = 'block';
-                    
-                    setTimeout(() => {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = 'Envoyer';
-                        errorMessage.style.display = 'none';
-                    }, 5000);
-                }
-            });
-        }
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero-content');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-                hero.style.opacity = 1 - (scrolled / window.innerHeight);
-            }
-
-            if (quoteElement) {
-                if (scrolled > 100) {
-                    quoteElement.style.opacity = '0';
-                    quoteElement.style.pointerEvents = 'none';
-                } else {
-                    quoteElement.style.opacity = '1';
-                    quoteElement.style.pointerEvents = 'auto';
-                }
-            }
-        });
-    </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
