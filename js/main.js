@@ -346,24 +346,40 @@
   var form = document.getElementById('contact-form');
   var statusEl = document.getElementById('form-status');
   var submitBtn = document.getElementById('form-submit');
+  var msgTextarea = document.getElementById('form-message');
+  var msgCounter = document.getElementById('msg-counter');
+
+  // Compteur de caractères message
+  if (msgTextarea && msgCounter) {
+    msgTextarea.addEventListener('input', function () {
+      var len = msgTextarea.value.length;
+      var max = 2000;
+      msgCounter.textContent = len + ' / ' + max;
+      msgCounter.className = 'form__counter';
+      if (len > max * 0.9) msgCounter.classList.add('form__counter--warn');
+      if (len >= max)      msgCounter.classList.add('form__counter--max');
+    });
+  }
 
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      var name = document.getElementById('form-name');
-      var email = document.getElementById('form-email');
+      var name    = document.getElementById('form-name');
+      var email   = document.getElementById('form-email');
+      var subject = document.getElementById('form-subject');
       var message = document.getElementById('form-message');
       var hasError = false;
 
-      [name, email, message].forEach(function (f) { if (f) f.removeAttribute('aria-invalid'); });
+      [name, email, subject, message].forEach(function (f) { if (f) f.removeAttribute('aria-invalid'); });
 
       if (name && !name.value.trim()) { name.setAttribute('aria-invalid', 'true'); hasError = true; }
       if (email && (!email.value.trim() || !email.value.includes('@'))) { email.setAttribute('aria-invalid', 'true'); hasError = true; }
-      if (message && !message.value.trim()) { message.setAttribute('aria-invalid', 'true'); hasError = true; }
+      if (subject && !subject.value) { subject.setAttribute('aria-invalid', 'true'); hasError = true; }
+      if (message && message.value.trim().length < 20) { message.setAttribute('aria-invalid', 'true'); hasError = true; }
 
       if (hasError) {
-        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = '> Veuillez remplir tous les champs obligatoires.'; }
+        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = '> Veuillez remplir tous les champs (message : 20 caractères minimum).'; }
         return;
       }
 
@@ -376,12 +392,13 @@
       })
       .then(function (res) {
         if (res.ok) {
-          if (statusEl) { statusEl.className = 'form__status form__status--success'; statusEl.textContent = '> Message envoye avec succes. Merci !'; }
+          if (statusEl) { statusEl.className = 'form__status form__status--success'; statusEl.textContent = '> Message envoyé avec succès. Merci !'; }
           form.reset();
+          if (msgCounter) { msgCounter.textContent = '0 / 2000'; msgCounter.className = 'form__counter'; }
         } else { throw new Error('err'); }
       })
       .catch(function () {
-        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = "> Erreur lors de l'envoi. Reessayez ou envoyez un email directement."; }
+        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = "> Erreur lors de l'envoi. Réessayez ou envoyez un email directement."; }
       })
       .finally(function () {
         if (submitBtn) {

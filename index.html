@@ -249,19 +249,28 @@
           <form class="form" action="https://formspree.io/f/xdanyvov" method="POST" id="contact-form" novalidate>
             <div class="form__group">
               <label for="form-name" class="form__label">Nom <span aria-hidden="true">*</span></label>
-              <input type="text" id="form-name" name="name" class="form__input" autocomplete="name" required>
+              <input type="text" id="form-name" name="name" class="form__input" autocomplete="name" required maxlength="80" placeholder="Votre nom">
             </div>
             <div class="form__group">
               <label for="form-email" class="form__label">Email <span aria-hidden="true">*</span></label>
-              <input type="email" id="form-email" name="email" class="form__input" autocomplete="email" required>
+              <input type="email" id="form-email" name="email" class="form__input" autocomplete="email" required maxlength="120" placeholder="votre@email.com">
             </div>
             <div class="form__group">
-              <label for="form-subject" class="form__label">Sujet</label>
-              <input type="text" id="form-subject" name="subject" class="form__input">
+              <label for="form-subject" class="form__label">Sujet <span aria-hidden="true">*</span></label>
+              <select id="form-subject" name="subject" class="form__input form__select" required>
+                <option value="" disabled selected>-- Choisissez un sujet --</option>
+                <option value="Développement Web">🌐 Développement Web</option>
+                <option value="Diagnostic & Réparation PC">🖥️ Diagnostic &amp; Réparation PC</option>
+                <option value="Formation cybersécurité">🎓 Formation cybersécurité</option>
+                <option value="Audit d'empreinte numérique (OSINT)">🔍 Audit d'empreinte numérique</option>
+                <option value="Question générale">💬 Question générale</option>
+                <option value="Autre">📋 Autre</option>
+              </select>
             </div>
             <div class="form__group">
               <label for="form-message" class="form__label">Message <span aria-hidden="true">*</span></label>
-              <textarea id="form-message" name="message" class="form__textarea" rows="5" required></textarea>
+              <textarea id="form-message" name="message" class="form__textarea" rows="5" required minlength="20" maxlength="2000" placeholder="Décrivez votre besoin en quelques mots…"></textarea>
+              <span class="form__counter" id="msg-counter" aria-live="polite">0 / 2000</span>
             </div>
             <button type="submit" class="btn btn--primary" id="form-submit">
               <svg class="ico" aria-hidden="true"><use href="#ico-send"/></svg>
@@ -281,7 +290,6 @@
         <span>while</span>(true) { <span>protect</span>(); <span>develop</span>(); <span>repeat</span>(); }
       </p>
       <p class="footer__copy">&copy; 2025 CyberSlash Solutions - Tous droits réservés.</p>
-      <div class="footer__socials">
       </div>
       <a href="pages/mentions-legales.html" class="footer-legal-link" style="display:block;text-align:center;margin-top:0.5rem;">Mentions légales</a>
     </div>

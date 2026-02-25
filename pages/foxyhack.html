@@ -6,46 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FoxyHack - CyberSlash Solutions</title>
   <link rel="stylesheet" href="../css/pages.css">
-  <style>
-    .ico { display:inline-block; width:1.25em; height:1.25em; vertical-align:-0.2em; flex-shrink:0; stroke:currentColor; fill:none; }
-    .ico--lg  { width:2rem;   height:2rem;   }
-    .ico--xl  { width:2.5rem; height:2.5rem; }
-    .ico--accent { color:var(--accent); }
-    .ico--secondary { color:var(--secondary); }
-    .mission-icon .ico, .team-icon .ico { width:2.5rem; height:2.5rem; }
-    .info-icon .ico   { width:1.75rem; height:1.75rem; }
-    .section-icon .ico { width:1.2em; height:1.2em; vertical-align:-0.25em; }
-    .badge-item .ico  { width:0.9em; height:0.9em; vertical-align:-0.15em; margin-right:0.3em; }
-    .organizers-title .ico { width:1em; height:1em; vertical-align:-0.15em; }
-
-    /* ---- Bannière victoire ---- */
-    .winner-banner {
-      background: linear-gradient(135deg, rgba(0,255,136,0.10), rgba(0,204,255,0.10));
-      border: 2px solid var(--accent);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      margin: 1.5rem 0;
-      text-align: center;
-    }
-    .winner-banner__trophy { display:block; margin-bottom:0.75rem; color:var(--accent); }
-    .winner-banner__label {
-      font-family: var(--font-mono); font-size:0.75rem;
-      color:var(--accent); font-weight:700;
-      text-transform:uppercase; letter-spacing:0.12em;
-      margin-bottom:0.5rem;
-    }
-    .winner-banner__title {
-      font-size:1.35rem; font-weight:700;
-      color:var(--text-heading); margin-bottom:0.75rem;
-    }
-    .winner-banner__text { font-size:0.9rem; color:var(--text-dim); line-height:1.7; }
-    .winner-banner__text strong { color:var(--text-heading); }
-  </style>
 </head>
 <body>
 
   <!-- SVG Sprite ---------------------------------------------------------- -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
     <symbol id="ico-shield"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
     <symbol id="ico-swords"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
     <symbol id="ico-terminal"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
@@ -181,7 +146,7 @@
       <div class="team-title">CyberFidelis — 1ère Place !</div>
       <div class="team-text">
         Notre équipe de <strong>CyberFidelis</strong> a décroché la première place de FoxyHack 2026.<br><br>
-        <strong style="color: var(--accent);">J'ai fait partie de cette équipe victorieuse !</strong><br>
+        <strong class="text-accent">J'ai fait partie de cette équipe victorieuse !</strong><br>
         Ensemble, nous avons développé un système de communication sécurisé et souverain qui servira de référence pour les <strong>communications des armées françaises de demain</strong>. Un résultat dont nous sommes fiers, alliant cybersécurité, développement et innovation au service de la défense nationale.
       </div>
     </div>
@@ -189,13 +154,13 @@
     <div class="organizers">
       <div class="organizers-title">
         <span class="organizers-title">
-          <svg class="ico" aria-hidden="true" style="width:1em;height:1em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><use href="#ico-user"/></svg>
+          <svg class="ico inline-icon" aria-hidden="true"><use href="#ico-user"/></svg>
           Organisateurs
         </span>
       </div>
       <div class="organizers-text">
         Événement organisé par l'<strong>EAC2P</strong> en partenariat avec <strong>NWX</strong>, l'association du numérique en Normandie.<br><br>
-        <svg class="ico" aria-hidden="true" style="width:1em;height:1em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><use href="#ico-mail"/></svg>
+        <svg class="ico inline-icon" aria-hidden="true"><use href="#ico-mail"/></svg>
         Contact : Agence du numérique NWX – 02 52 60 02 38
       </div>
     </div>
@@ -203,7 +168,7 @@
         <footer class="page-footer">
       <p><strong>CyberSlash Solutions</strong> — Votre partenaire digital</p>
 
-      <p style="margin-top:1rem;font-size:0.8rem;">© 2025 CyberSlash Solutions — Tous droits réservés</p>
+      <p class="copyright-note--sm">© 2025 CyberSlash Solutions — Tous droits réservés</p>
       <a href="mentions-legales.html" class="footer-legal-link">Mentions légales</a>
     </footer>
 

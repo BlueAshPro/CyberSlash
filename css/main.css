@@ -501,7 +501,23 @@ section { padding: clamp(4rem, 8vw, 7rem) 0; position: relative; z-index: 1; }
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
 .form__textarea { resize: vertical; min-height: 7rem; }
-.form__status { font-family: var(--font-mono); font-size: 0.8125rem; }
+.form__select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238b8b94' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+}
+.form__select option { background: #0a0a0f; color: #e4e4e7; }
+.form__counter {
+  font-family: var(--font-mono); font-size: 0.7rem;
+  color: var(--text-dim); text-align: right; margin-top: 0.2rem;
+  transition: color 0.2s;
+}
+.form__counter--warn { color: #ffaa00; }
+.form__counter--max  { color: #ff5555; }
+.form__status { font-family: var(--font-mono); font-size: 0.8125rem; margin-top: 0.5rem; }
 .form__status--success { color: var(--accent); }
 .form__status--error { color: #ff5555; }
 

@@ -6,22 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SOC-Fenrir - CyberSlash Solutions</title>
   <link rel="stylesheet" href="../css/pages.css">
-  <style>
-    .ico { display:inline-block; width:1.25em; height:1.25em; vertical-align:-0.2em; flex-shrink:0; stroke:currentColor; fill:none; }
-    .ico--lg  { width:2rem;   height:2rem;   }
-    .ico--xl  { width:2.5rem; height:2.5rem; }
-    .ico--accent    { color:var(--accent); }
-    .ico--secondary { color:var(--secondary); }
-    .mission-icon .ico, .team-icon .ico { width:2.5rem; height:2.5rem; }
-    .section-icon .ico { width:1.2em; height:1.2em; vertical-align:-0.25em; }
-    .badge-item .ico   { width:0.9em; height:0.9em; vertical-align:-0.15em; margin-right:0.3em; }
-    .def-title .ico    { width:1em; height:1em; vertical-align:-0.15em; margin-right:0.25em; }
-  </style>
 </head>
 <body>
 
   <!-- SVG Sprite ---------------------------------------------------------- -->
-  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
     <symbol id="ico-shield"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
     <symbol id="ico-swords"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
     <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></symbol>
@@ -58,7 +47,7 @@
 
     <div class="soc-definition">
       <div class="def-title">
-        <svg class="ico" aria-hidden="true" style="width:1em;height:1em;vertical-align:-0.15em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><use href="#ico-folder"/></svg>
+        <svg class="ico inline-icon" aria-hidden="true"><use href="#ico-folder"/></svg>
         Qu'est-ce qu'un SOC ?
       </div>
       <div class="def-text">
@@ -113,14 +102,14 @@
       <div class="team-title">Un Projet CyberFidelis</div>
       <div class="team-text">
         SOC-Fenrir est porté par des étudiants Ynov membres de <strong>CyberFidelis</strong>.<br><br>
-        <strong style="color: var(--accent);">Je participe à ce projet !</strong><br>
+        <strong class="text-accent">Je participe à ce projet !</strong><br>
         Membre récent de l'équipe, je découvre progressivement comment un centre opérationnel de sécurité est structuré et fonctionne au quotidien.
       </div>
     </div>
 
         <footer class="page-footer">
       <p><strong>CyberSlash Solutions</strong> — Votre partenaire digital</p>
-      <p style="margin-top:1rem;font-size:0.8rem;">© 2025 CyberSlash Solutions — Tous droits réservés</p>
+      <p class="copyright-note--sm">© 2025 CyberSlash Solutions — Tous droits réservés</p>
       <a href="mentions-legales.html" class="footer-legal-link">Mentions légales</a>
     </footer>
 
