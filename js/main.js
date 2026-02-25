@@ -1,7 +1,9 @@
 (function () {
   'use strict';
 
-  /* ---- Mobile nav toggle ---- */
+  /* ============================
+     MOBILE NAV TOGGLE
+     ============================ */
   var toggle = document.querySelector('.nav__toggle');
   var menu = document.getElementById('nav-menu');
   var menuIcon = toggle ? toggle.querySelector('use') : null;
@@ -16,9 +18,8 @@
   if (toggle) {
     toggle.addEventListener('click', function () {
       var isOpen = menu.getAttribute('data-open') === 'true';
-      if (isOpen) {
-        closeMenu();
-      } else {
+      if (isOpen) { closeMenu(); }
+      else {
         menu.setAttribute('data-open', 'true');
         toggle.setAttribute('aria-expanded', 'true');
         menuIcon.setAttribute('href', '#ico-x');
@@ -26,26 +27,22 @@
     });
   }
 
-  /* Close on link click (mobile) */
   if (menu) {
     menu.querySelectorAll('.nav__link').forEach(function (link) {
       link.addEventListener('click', closeMenu);
     });
   }
 
-  /* Close on Escape */
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      if (menu && menu.getAttribute('data-open') === 'true') {
-        closeMenu();
-        toggle.focus();
-      }
-      // Also close modal
-      closeModal();
+    if (e.key === 'Escape' && menu && menu.getAttribute('data-open') === 'true') {
+      closeMenu();
+      if (toggle) toggle.focus();
     }
   });
 
-  /* ---- Smooth scroll ---- */
+  /* ============================
+     SMOOTH SCROLL (anchor links only)
+     ============================ */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', function (e) {
       var href = this.getAttribute('href');
@@ -59,19 +56,57 @@
     });
   });
 
-  /* ---- Intersection Observer for fade-in ---- */
+  /* ============================
+     GLITCH: add data-text to section titles
+     ============================ */
+  document.querySelectorAll('.section-header__title').forEach(function (el) {
+    el.setAttribute('data-text', el.textContent);
+  });
+
+  /* ============================
+     STAGGER CARD REVEAL
+     ============================ */
+  var cardObserver;
   if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
+    cardObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var grid = entry.target;
+        var cards = grid.querySelectorAll('.card');
+        cards.forEach(function (card, i) {
+          setTimeout(function () {
+            card.classList.add('card--visible');
+          }, i * 90);
+        });
+        cardObserver.unobserve(grid);
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.cards-grid').forEach(function (grid) {
+      cardObserver.observe(grid);
+    });
+  } else {
+    // Fallback: show all immediately
+    document.querySelectorAll('.card').forEach(function (c) {
+      c.classList.add('card--visible');
+    });
+  }
+
+  /* ============================
+     SECTION FADE IN
+     ============================ */
+  if ('IntersectionObserver' in window) {
+    var fadeObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add('fade-in--visible');
-          observer.unobserve(entry.target);
+          fadeObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-in').forEach(function (el) {
-      observer.observe(el);
+      fadeObserver.observe(el);
     });
   } else {
     document.querySelectorAll('.fade-in').forEach(function (el) {
@@ -79,7 +114,170 @@
     });
   }
 
-  /* ---- Quote rotation ---- */
+  /* ============================
+     CODE RAIN CANVAS
+     ============================ */
+  (function () {
+    var canvas = document.getElementById('rain-canvas');
+    if (!canvas) return;
+
+    // Skip on very low-power devices (optional: check battery API or use reduced motion)
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      canvas.style.display = 'none';
+      return;
+    }
+
+    var ctx = canvas.getContext('2d');
+    var chars = '01アイウエオカキクケコサシスセソ<>{}[]|/\\!?#$%&';
+    var cols, drops, fontSize;
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      fontSize = window.innerWidth < 600 ? 11 : 13;
+      cols = Math.floor(canvas.width / (fontSize * 1.5));
+      drops = new Array(cols).fill(0).map(function () {
+        return Math.floor(Math.random() * -50);
+      });
+    }
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    function draw() {
+      ctx.fillStyle = 'rgba(10, 10, 15, 0.045)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = fontSize + 'px monospace';
+
+      for (var i = 0; i < drops.length; i++) {
+        var y = drops[i] * (fontSize * 1.5);
+        if (y < 0) { drops[i]++; continue; }
+
+        // Bright head char
+        ctx.fillStyle = '#aaffdd';
+        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * (fontSize * 1.5), y);
+
+        // Trailing chars
+        ctx.fillStyle = '#00ff88';
+        var trailChar = chars[Math.floor(Math.random() * chars.length)];
+        if (y - fontSize * 1.5 > 0) {
+          ctx.fillText(trailChar, i * (fontSize * 1.5), y - fontSize * 1.5);
+        }
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = -Math.floor(Math.random() * 20);
+        }
+        drops[i]++;
+      }
+    }
+
+    var raf;
+    var lastTime = 0;
+    var interval = 55; // ~18fps for the rain
+
+    function loop(ts) {
+      if (ts - lastTime >= interval) {
+        draw();
+        lastTime = ts;
+      }
+      raf = requestAnimationFrame(loop);
+    }
+
+    // Pause when tab hidden (save CPU)
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) { cancelAnimationFrame(raf); }
+      else { raf = requestAnimationFrame(loop); }
+    });
+
+    raf = requestAnimationFrame(loop);
+  })();
+
+  /* ============================
+     CUSTOM CURSOR
+     ============================ */
+  (function () {
+    // Touch devices: skip
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    var cursor = document.getElementById('cursor');
+    if (!cursor) return;
+
+    var mx = window.innerWidth / 2;
+    var my = window.innerHeight / 2;
+    var cx = mx, cy = my;
+    var isHovering = false;
+
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      cursor.classList.remove('cursor--hidden');
+    });
+    document.addEventListener('mouseleave', function () { cursor.classList.add('cursor--hidden'); });
+    document.addEventListener('mouseenter', function () { cursor.classList.remove('cursor--hidden'); });
+
+    // Hover class on interactive elements
+    var interactives = document.querySelectorAll('a, button, .card, input, textarea, select');
+    interactives.forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cursor.classList.add('cursor--hover'); isHovering = true; });
+      el.addEventListener('mouseleave', function () { cursor.classList.remove('cursor--hover'); isHovering = false; });
+    });
+
+    function tick() {
+      var ease = isHovering ? 0.12 : 0.18;
+      cx += (mx - cx) * ease;
+      cy += (my - cy) * ease;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      requestAnimationFrame(tick);
+    }
+    tick();
+  })();
+
+  /* ============================
+     PAGE TRANSITION
+     ============================ */
+  (function () {
+    var overlay = document.getElementById('page-transition');
+    var progress = document.getElementById('pt-progress');
+    if (!overlay) return;
+
+    function navigate(href) {
+      overlay.classList.add('active');
+      if (progress) {
+        progress.style.width = '0%';
+        // Quick animation to simulate loading
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            progress.style.width = '70%';
+            setTimeout(function () {
+              progress.style.width = '100%';
+            }, 150);
+          });
+        });
+      }
+      setTimeout(function () {
+        window.location.href = href;
+      }, 320);
+    }
+
+    // Intercept internal page links (not anchors, not mailto, not external)
+    document.querySelectorAll('a.nav-link').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var href = a.getAttribute('href');
+        if (!href) return;
+        e.preventDefault();
+        navigate(href);
+      });
+    });
+
+    // Fade out on back navigation
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) { overlay.classList.remove('active'); }
+    });
+  })();
+
+  /* ============================
+     QUOTE ROTATION
+     ============================ */
   var quotes = [
     "Activez l'authentification a deux facteurs (2FA) sur tous vos comptes importants.",
     "Un mot de passe fort fait au moins 16 caracteres avec chiffres, lettres et symboles.",
@@ -97,109 +295,33 @@
   ];
   var quoteIndex = 0;
   var quoteEl = document.getElementById('quote-text');
-
   if (quoteEl) {
     setInterval(function () {
       quoteIndex = (quoteIndex + 1) % quotes.length;
-      quoteEl.textContent = quotes[quoteIndex];
+      quoteEl.style.opacity = '0';
+      setTimeout(function () {
+        quoteEl.textContent = quotes[quoteIndex];
+        quoteEl.style.opacity = '1';
+      }, 300);
     }, 8000);
+    quoteEl.style.transition = 'opacity 0.3s';
   }
 
-  /* ---- Hide quote banner on scroll ---- */
+  /* ============================
+     SCROLL UTILITIES
+     ============================ */
   var quoteBanner = document.getElementById('quote-banner');
   var backToTop = document.getElementById('back-to-top');
 
   window.addEventListener('scroll', function () {
     var y = window.scrollY;
-
-    if (quoteBanner) {
-      quoteBanner.hidden = y > 300;
-    }
-
-    if (backToTop) {
-      backToTop.setAttribute('data-visible', y > 600 ? 'true' : 'false');
-    }
+    if (quoteBanner) quoteBanner.hidden = y > 300;
+    if (backToTop) backToTop.setAttribute('data-visible', y > 600 ? 'true' : 'false');
   }, { passive: true });
 
-  /* ---- Modal System ---- */
-  var modal = document.getElementById('page-modal');
-  var modalTitle = document.getElementById('modal-title');
-  var modalIframe = document.getElementById('modal-iframe');
-  var modalClose = document.getElementById('modal-close');
-  var lastFocusedElement = null;
-
-  function openModal(pageName, title) {
-    if (!modal || !modalTitle || !modalIframe) return;
-
-    lastFocusedElement = document.activeElement;
-
-    modalTitle.textContent = title;
-    modalIframe.src = 'pages/' + pageName + '.html';
-
-    modal.classList.add('active');
-    document.body.classList.add('modal-open');
-
-    // Focus the close button
-    if (modalClose) {
-      modalClose.focus();
-    }
-  }
-
-  function closeModal() {
-    if (!modal) return;
-
-    modal.classList.remove('active');
-    document.body.classList.remove('modal-open');
-
-    if (modalIframe) {
-      modalIframe.src = '';
-    }
-
-    // Restore focus
-    if (lastFocusedElement) {
-      lastFocusedElement.focus();
-    }
-  }
-
-  // Expose functions globally
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-
-  // Close button
-  if (modalClose) {
-    modalClose.addEventListener('click', closeModal);
-  }
-
-  // Click outside modal content to close
-  if (modal) {
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
-  }
-
-  // Handle cards with data-page attribute
-  document.querySelectorAll('[data-page]').forEach(function (card) {
-    card.addEventListener('click', function (e) {
-      e.preventDefault();
-      var pageName = this.getAttribute('data-page');
-      var title = this.getAttribute('data-title') || 'Document';
-      openModal(pageName, title);
-    });
-
-    // Make keyboard accessible
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var pageName = this.getAttribute('data-page');
-        var title = this.getAttribute('data-title') || 'Document';
-        openModal(pageName, title);
-      }
-    });
-  });
-
-  /* ---- Contact form ---- */
+  /* ============================
+     CONTACT FORM
+     ============================ */
   var form = document.getElementById('contact-form');
   var statusEl = document.getElementById('form-status');
   var submitBtn = document.getElementById('form-submit');
@@ -208,42 +330,23 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      /* Basic validation */
       var name = document.getElementById('form-name');
       var email = document.getElementById('form-email');
       var message = document.getElementById('form-message');
       var hasError = false;
 
-      [name, email, message].forEach(function (field) {
-        if (field) field.removeAttribute('aria-invalid');
-      });
+      [name, email, message].forEach(function (f) { if (f) f.removeAttribute('aria-invalid'); });
 
-      if (name && !name.value.trim()) {
-        name.setAttribute('aria-invalid', 'true');
-        hasError = true;
-      }
-      if (email && (!email.value.trim() || !email.value.includes('@'))) {
-        email.setAttribute('aria-invalid', 'true');
-        hasError = true;
-      }
-      if (message && !message.value.trim()) {
-        message.setAttribute('aria-invalid', 'true');
-        hasError = true;
-      }
+      if (name && !name.value.trim()) { name.setAttribute('aria-invalid', 'true'); hasError = true; }
+      if (email && (!email.value.trim() || !email.value.includes('@'))) { email.setAttribute('aria-invalid', 'true'); hasError = true; }
+      if (message && !message.value.trim()) { message.setAttribute('aria-invalid', 'true'); hasError = true; }
 
       if (hasError) {
-        if (statusEl) {
-          statusEl.className = 'form__status form__status--error';
-          statusEl.textContent = '> Veuillez remplir tous les champs obligatoires.';
-        }
+        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = '> Veuillez remplir tous les champs obligatoires.'; }
         return;
       }
 
-      /* Submit */
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Envoi en cours...';
-      }
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours...'; }
 
       fetch(form.action, {
         method: 'POST',
@@ -252,20 +355,12 @@
       })
       .then(function (res) {
         if (res.ok) {
-          if (statusEl) {
-            statusEl.className = 'form__status form__status--success';
-            statusEl.textContent = '> Message envoye avec succes. Merci !';
-          }
+          if (statusEl) { statusEl.className = 'form__status form__status--success'; statusEl.textContent = '> Message envoye avec succes. Merci !'; }
           form.reset();
-        } else {
-          throw new Error('Erreur serveur');
-        }
+        } else { throw new Error('err'); }
       })
       .catch(function () {
-        if (statusEl) {
-          statusEl.className = 'form__status form__status--error';
-          statusEl.textContent = "> Erreur lors de l'envoi. Reessayez ou envoyez un email directement.";
-        }
+        if (statusEl) { statusEl.className = 'form__status form__status--error'; statusEl.textContent = "> Erreur lors de l'envoi. Reessayez ou envoyez un email directement."; }
       })
       .finally(function () {
         if (submitBtn) {
@@ -275,4 +370,5 @@
       });
     });
   }
+
 })();

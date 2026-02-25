@@ -16,130 +16,74 @@
 </head>
 <body>
 
-  <!-- SVG Icon Sprite -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="page-transition" id="page-transition" aria-hidden="true">
+    <div class="page-transition__inner">
+      <div class="page-transition__logo">Cyber<span>Slash</span></div>
+      <div class="page-transition__bar"><div class="page-transition__progress" id="pt-progress"></div></div>
+    </div>
+  </div>
+  <canvas id="rain-canvas" aria-hidden="true"></canvas>
+
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </symbol>
-    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
-    </symbol>
-    <symbol id="ico-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
-    </symbol>
-    <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/>
-    </symbol>
-    <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/>
-    </symbol>
-    <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-    </symbol>
-    <symbol id="ico-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-    </symbol>
-    <symbol id="ico-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
-    </symbol>
-    <symbol id="ico-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-    </symbol>
-    <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/>
-    </symbol>
-    <symbol id="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-    </symbol>
-    <symbol id="ico-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
-    </symbol>
-    <symbol id="ico-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-    </symbol>
-    <symbol id="ico-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
-    </symbol>
-    <symbol id="ico-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-    </symbol>
-    <symbol id="ico-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
-    </symbol>
-    <symbol id="ico-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-    </symbol>
-    <symbol id="ico-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15"/>
-    </symbol>
-    <symbol id="ico-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-    </symbol>
-    <symbol id="ico-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-    </symbol>
+    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="ico-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></symbol>
+    <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
+    <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="ico-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="ico-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/></symbol>
+    <symbol id="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="ico-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="ico-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
+    <symbol id="ico-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
+    <symbol id="ico-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="ico-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+    <symbol id="ico-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="ico-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></symbol>
+    <symbol id="ico-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="ico-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
   </svg>
 
-  <!-- Skip link -->
   <a href="#main" class="skip-link">Aller au contenu principal</a>
 
-  <!-- ===== NAVIGATION ===== -->
   <nav class="nav" aria-label="Navigation principale">
     <a href="#" class="nav__logo" aria-label="CyberSlash Solutions - Accueil">
       <svg class="ico" aria-hidden="true"><use href="#ico-shield"/></svg>
       Cyber<span class="nav__logo-accent">Slash</span>
     </a>
-
     <button type="button" class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Ouvrir le menu de navigation">
       <svg class="ico" aria-hidden="true"><use href="#ico-menu"/></svg>
     </button>
-
     <ul class="nav__links" id="nav-menu" role="list">
-      <li><a href="#about" class="nav__link"> À propos</a></li>
+      <li><a href="#about" class="nav__link">À propos</a></li>
       <li><a href="#services" class="nav__link">Services</a></li>
       <li><a href="#portfolio" class="nav__link">Projets</a></li>
       <li><a href="#contact" class="nav__link">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- ===== MODAL ===== -->
-  <div class="modal" id="page-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal__content">
-      <header class="modal__header">
-        <h2 class="modal__title" id="modal-title">Document</h2>
-        <button type="button" class="modal__close" id="modal-close" aria-label="Fermer">
-          <svg class="ico" aria-hidden="true"><use href="#ico-x"/></svg>
-        </button>
-      </header>
-      <iframe class="modal__iframe" id="modal-iframe" title="Contenu de la page"></iframe>
-    </div>
-  </div>
-
-  <!-- ===== MAIN ===== -->
   <main id="main">
 
-    <!-- ===== HERO ===== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container">
         <div class="hero__inner">
           <div class="terminal-prompt" aria-hidden="true">
             <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">./welcome.sh</span>
           </div>
-
           <div class="hero__badge">
             <span class="hero__badge-dot" aria-hidden="true"></span>
             Disponible pour vos projets
           </div>
-
           <h1 id="hero-title" class="hero__title">
             Cybersécurité<br>
             <span class="hero__title-accent">&amp; Développement Web</span>
           </h1>
-
           <p class="hero__desc">
             Solutions sur mesure pour <strong>protéger</strong>, <strong>créer</strong> et <strong>optimiser</strong> votre présence numérique. De l'audit de sécurité au développement d'applications.
           </p>
-
           <div class="hero__actions">
             <a href="#services" class="btn btn--primary">
               <svg class="ico" aria-hidden="true"><use href="#ico-shield"/></svg>
@@ -154,209 +98,129 @@
       </div>
     </section>
 
-    <!-- ===== 01. A PROPOS ===== -->
     <section id="about" aria-labelledby="about-title">
       <div class="container fade-in">
         <div class="terminal-prompt" aria-hidden="true">
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/about</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat profil.txt</span>
         </div>
-
         <header class="section-header">
           <span class="section-header__number">01.</span>
           <h2 id="about-title" class="section-header__title">Qui suis-je ?</h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
-
         <div class="about-grid">
           <div class="about__text">
-            <p>
-              Je suis <strong>Killian</strong>, passionné de <strong>cybersécurité</strong> et de <strong>développement web</strong>. Fondateur de CyberSlash Solutions, j'accompagne entreprises et particuliers dans la sécurisation de leurs systèmes et la création de solutions numériques performantes.
-            </p>
-            <p>
-              Mon approche combine rigueur technique et pédagogie pour rendre la sécurité informatique accessible à tous. Chaque projet est une mission : <strong>comprendre</strong>, <strong>protéger</strong>, <strong>construire</strong>.
-            </p>
-            <button type="button" class="btn btn--outline" data-page="qui-suis-je" data-title="Qui suis-je ?" style="width:fit-content;margin-top:0.5rem" tabindex="0">
+            <p>Je suis <strong>Killian</strong>, passionné de <strong>cybersécurité</strong> et de <strong>développement web</strong>. Fondateur de CyberSlash Solutions, j'accompagne entreprises et particuliers dans la sécurisation de leurs systèmes et la création de solutions numériques performantes.</p>
+            <p>Mon approche combine rigueur technique et pédagogie pour rendre la sécurité informatique accessible à tous. Chaque projet est une mission : <strong>comprendre</strong>, <strong>protéger</strong>, <strong>construire</strong>.</p>
+            <a href="pages/qui-suis-je.html" class="btn btn--outline nav-link" style="width:fit-content;margin-top:0.5rem">
               <svg class="ico" aria-hidden="true"><use href="#ico-user"/></svg>
               En savoir plus
-            </button>
+            </a>
           </div>
           <div class="about__stats" role="list" aria-label="Chiffres clés">
-            <div class="stat-card" role="listitem">
-              <div class="stat-card__value">5+</div>
-              <div class="stat-card__label">Années d'expérience</div>
-            </div>
-            <div class="stat-card" role="listitem">
-              <div class="stat-card__value">50+</div>
-              <div class="stat-card__label">Projets réalisés</div>
-            </div>
-            <div class="stat-card" role="listitem">
-              <div class="stat-card__value">100%</div>
-              <div class="stat-card__label">Engagement qualité</div>
-            </div>
-            <div class="stat-card" role="listitem">
-              <div class="stat-card__value">24/7</div>
-              <div class="stat-card__label">Veille sécurité</div>
-            </div>
+            <div class="stat-card" role="listitem"><div class="stat-card__value">5+</div><div class="stat-card__label">Années d'expérience</div></div>
+            <div class="stat-card" role="listitem"><div class="stat-card__value">50+</div><div class="stat-card__label">Projets réalisés</div></div>
+            <div class="stat-card" role="listitem"><div class="stat-card__value">100%</div><div class="stat-card__label">Engagement qualité</div></div>
+            <div class="stat-card" role="listitem"><div class="stat-card__value">24/7</div><div class="stat-card__label">Veille sécurité</div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== 02. SERVICES ===== -->
     <section id="services" aria-labelledby="services-title">
       <div class="container fade-in">
         <div class="terminal-prompt" aria-hidden="true">
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/services</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">ls -la</span>
         </div>
-
         <header class="section-header">
           <span class="section-header__number">02.</span>
           <h2 id="services-title" class="section-header__title">Mes Services</h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
-
         <div class="cards-grid">
-          <!-- Cybersécurité -->
-          <article class="card" data-page="cybersecurite" data-title="Cybersécurité" tabindex="0" role="button" aria-label="Voir les détails du service Cybersécurité">
-            <div class="card__icon-wrap">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-shield"/></svg>
-            </div>
+          <a class="card nav-link" href="pages/cybersecurite.html" aria-label="Cybersécurité">
+            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-shield"/></svg></div>
             <h3 class="card__title">Cybersécurité</h3>
             <p class="card__desc">Pentests, audits de vulnérabilités, durcissement de systèmes et réponse aux incidents. Protégez vos actifs numériques.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- Développement Web -->
-          <article class="card" data-page="dev-web" data-title="Développement Web" tabindex="0" role="button" aria-label="Voir les détails du service Développement Web">
-            <div class="card__icon-wrap card__icon-wrap--blue">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-code"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/dev-web.html" aria-label="Développement Web">
+            <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-code"/></svg></div>
             <h3 class="card__title">Développement Web</h3>
             <p class="card__desc">Sites vitrines, applications web, e-commerce. Code propre, accessible, performant et optimisé pour le référencement.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- Diagnostic PC -->
-          <article class="card" data-page="reparation-pc" data-title="Diagnostic &amp; Réparation PC" tabindex="0" role="button" aria-label="Voir les détails du service Diagnostic et Réparation PC">
-            <div class="card__icon-wrap">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-wrench"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/reparation-pc.html" aria-label="Diagnostic PC">
+            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-wrench"/></svg></div>
             <h3 class="card__title">Diagnostic &amp; Réparation PC</h3>
             <p class="card__desc">Diagnostic matériel et logiciel, optimisation, suppression de malwares, récupération de données et maintenance préventive.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- Formation -->
-          <article class="card" data-page="formation" data-title="Formation" tabindex="0" role="button" aria-label="Voir les détails du service Formation">
-            <div class="card__icon-wrap card__icon-wrap--blue">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-graduation"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/formation.html" aria-label="Formation">
+            <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-graduation"/></svg></div>
             <h3 class="card__title">Formation</h3>
             <p class="card__desc">Sensibilisation à la cybersécurité, bonnes pratiques numériques, formation aux outils et à l'hygiène informatique.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- OSINT & Audit -->
-          <article class="card" data-page="osint-audit" data-title="OSINT &amp; Audit" tabindex="0" role="button" aria-label="Voir les détails du service OSINT et Audit">
-            <div class="card__icon-wrap">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-search"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/osint-audit.html" aria-label="OSINT & Audit">
+            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-search"/></svg></div>
             <h3 class="card__title">OSINT &amp; Audit</h3>
             <p class="card__desc">Renseignement en sources ouvertes, cartographie de la surface d'attaque, analyse d'empreinte numérique.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- Intervention rapide -->
-          <article class="card" data-page="intervention-rapide" data-title="Intervention Rapide" tabindex="0" role="button" aria-label="Voir les détails du service Intervention Rapide">
-            <div class="card__icon-wrap card__icon-wrap--blue">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-monitor"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/intervention-rapide.html" aria-label="Intervention Rapide">
+            <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-monitor"/></svg></div>
             <h3 class="card__title">Intervention Rapide</h3>
             <p class="card__desc">Dépannage informatique à distance ou sur site. Résolution rapide de vos problèmes techniques urgents.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
+            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ===== 03. PORTFOLIO ===== -->
     <section id="portfolio" aria-labelledby="portfolio-title">
       <div class="container fade-in">
         <div class="terminal-prompt" aria-hidden="true">
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/projets</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">find . -type d</span>
         </div>
-
         <header class="section-header">
           <span class="section-header__number">03.</span>
           <h2 id="portfolio-title" class="section-header__title">Projets Réalisés</h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
-
         <div class="cards-grid">
-          <!-- FoxyHack -->
-          <article class="card" data-page="foxyhack" data-title="FoxyHack" tabindex="0" role="button" aria-label="Voir le projet FoxyHack">
-            <div class="card__icon-wrap">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-swords"/></svg>
-            </div>
+          <a class="card nav-link" href="pages/foxyhack.html" aria-label="FoxyHack">
+            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-swords"/></svg></div>
             <h3 class="card__title">FoxyHack</h3>
             <p class="card__desc">Plateforme CTF (Capture The Flag) éducative pour l'apprentissage de la cybersécurité par la pratique.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- SOC Fenrir -->
-          <article class="card" data-page="soc-fenrir" data-title="SOC Fenrir" tabindex="0" role="button" aria-label="Voir le projet SOC Fenrir">
-            <div class="card__icon-wrap card__icon-wrap--blue">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-terminal"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/soc-fenrir.html" aria-label="SOC Fenrir">
+            <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-terminal"/></svg></div>
             <h3 class="card__title">SOC Fenrir</h3>
             <p class="card__desc">Centre d'opérations de sécurité (SOC) personnel avec monitoring, détection d'intrusions et réponse aux alertes.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
-
-          <!-- Projets Annexes -->
-          <article class="card" data-page="projets-annexes" data-title="Projets Annexes" tabindex="0" role="button" aria-label="Voir les projets annexes">
-            <div class="card__icon-wrap">
-              <svg class="ico ico--lg" aria-hidden="true"><use href="#ico-folder"/></svg>
-            </div>
+            <span class="card__link-hint" aria-hidden="true">Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
+          <a class="card nav-link" href="pages/projets-annexes.html" aria-label="Projets Annexes">
+            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-folder"/></svg></div>
             <h3 class="card__title">Projets Annexes</h3>
             <p class="card__desc">Scripts d'automatisation, outils de sécurité, contributions open-source et expérimentations techniques.</p>
-            <span class="card__link-hint" aria-hidden="true">
-              Voir les projets <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg>
-            </span>
-          </article>
+            <span class="card__link-hint" aria-hidden="true">Voir les projets <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ===== 04. CONTACT ===== -->
     <section id="contact" aria-labelledby="contact-title">
       <div class="container fade-in">
         <div class="terminal-prompt" aria-hidden="true">
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/contact</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat README.md</span>
         </div>
-
         <header class="section-header">
           <span class="section-header__number">04.</span>
           <h2 id="contact-title" class="section-header__title">Contactez-moi</h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
-
         <div class="contact-grid">
           <div class="contact__info">
             <p>Un projet en tête, une question de sécurité ou un besoin technique ? N'hésitez pas à me contacter. Je réponds généralement sous 24 heures.</p>
@@ -367,24 +231,21 @@
               </a>
               <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="contact__channel" target="_blank" rel="noopener noreferrer">
                 <svg class="ico ico--secondary" aria-hidden="true"><use href="#ico-linkedin"/></svg>
-                LinkedIn
-                <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+                LinkedIn<span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
               </a>
               <a href="https://github.com/" class="contact__channel" target="_blank" rel="noopener noreferrer">
                 <svg class="ico ico--accent" aria-hidden="true"><use href="#ico-github"/></svg>
-                GitHub
-                <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+                GitHub<span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
               </a>
             </div>
           </div>
-
           <form class="form" action="https://formspree.io/f/xdanyvov" method="POST" id="contact-form" novalidate>
             <div class="form__group">
-              <label for="form-name" class="form__label">Nom <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <label for="form-name" class="form__label">Nom <span aria-hidden="true">*</span></label>
               <input type="text" id="form-name" name="name" class="form__input" autocomplete="name" required>
             </div>
             <div class="form__group">
-              <label for="form-email" class="form__label">Email <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <label for="form-email" class="form__label">Email <span aria-hidden="true">*</span></label>
               <input type="email" id="form-email" name="email" class="form__input" autocomplete="email" required>
             </div>
             <div class="form__group">
@@ -392,7 +253,7 @@
               <input type="text" id="form-subject" name="subject" class="form__input">
             </div>
             <div class="form__group">
-              <label for="form-message" class="form__label">Message <span aria-hidden="true">*</span><span class="sr-only">(obligatoire)</span></label>
+              <label for="form-message" class="form__label">Message <span aria-hidden="true">*</span></label>
               <textarea id="form-message" name="message" class="form__textarea" rows="5" required></textarea>
             </div>
             <button type="submit" class="btn btn--primary" id="form-submit">
@@ -407,7 +268,6 @@
 
   </main>
 
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="container">
       <p class="footer__code" aria-hidden="true">
@@ -415,26 +275,24 @@
       </p>
       <p class="footer__copy">&copy; 2025 CyberSlash Solutions - Tous droits réservés.</p>
       <div class="footer__socials">
-        <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (s'ouvre dans un nouvel onglet)">
+        <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <svg class="ico" aria-hidden="true"><use href="#ico-linkedin"/></svg>
         </a>
-        <a href="https://github.com/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub (s'ouvre dans un nouvel onglet)">
+        <a href="https://github.com/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <svg class="ico" aria-hidden="true"><use href="#ico-github"/></svg>
         </a>
-        <a href="mailto:contact.cyberslash@gmail.com" class="footer__social" aria-label="Envoyer un email">
+        <a href="mailto:contact.cyberslash@gmail.com" class="footer__social" aria-label="Email">
           <svg class="ico" aria-hidden="true"><use href="#ico-mail"/></svg>
         </a>
       </div>
     </div>
   </footer>
 
-  <!-- ===== QUOTE BANNER ===== -->
   <aside class="quote-banner" aria-label="Conseil cybersécurité" id="quote-banner">
     <svg class="ico quote-banner__icon" aria-hidden="true"><use href="#ico-lightbulb"/></svg>
     <span id="quote-text">Activez l'authentification à deux facteurs (2FA) sur tous vos comptes importants.</span>
   </aside>
 
-  <!-- ===== BACK TO TOP ===== -->
   <a href="#" class="back-to-top" aria-label="Retour en haut de page" id="back-to-top">
     <svg class="ico" aria-hidden="true"><use href="#ico-chevron-up"/></svg>
   </a>
