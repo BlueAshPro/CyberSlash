@@ -2,6 +2,26 @@
   'use strict';
 
   /* ============================
+     SCROLL POSITION RESTORE
+     Sauvegarde la position scroll avant navigation
+     et la restaure au retour (bouton précédent)
+     ============================ */
+  (function () {
+    try {
+      var k = 'scrollPos:' + window.location.href;
+      var saved = sessionStorage.getItem(k);
+      if (saved !== null) {
+        sessionStorage.removeItem(k);
+        // Petit délai pour laisser le DOM se stabiliser
+        requestAnimationFrame(function () {
+          window.scrollTo(0, parseInt(saved, 10));
+        });
+      }
+    } catch (e) {}
+  })();
+
+
+  /* ============================
      MOBILE NAV TOGGLE
      ============================ */
   var toggle = document.querySelector('.nav__toggle');
@@ -241,6 +261,7 @@
     if (!overlay) return;
 
     function navigate(href) {
+      try { sessionStorage.setItem('scrollPos:' + window.location.href, '' + window.scrollY); } catch (e) {}
       overlay.classList.add('active');
       if (progress) {
         progress.style.width = '0%';

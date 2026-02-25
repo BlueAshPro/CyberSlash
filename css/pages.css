@@ -610,3 +610,92 @@ li strong { color: var(--text-heading); }
 .footer strong { color: var(--text-heading); }
 .contact-info { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; margin-top: 0.75rem; }
 .contact-item { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); }
+
+/* ============================
+   DOCUMENT H1 — Titre stylé DA
+   ============================ */
+article.document > h1 {
+  position: relative;
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--text-heading);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+  padding-left: 1.1rem;
+  padding-bottom: 1.1rem;
+  border-left: 3px solid var(--accent);
+}
+article.document > h1::before {
+  content: '//';
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.45rem;
+  opacity: 0.85;
+}
+article.document > h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 4rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  border-radius: 1px;
+}
+
+/* ============================
+   MENTIONS LÉGALES PAGE
+   ============================ */
+.legal-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.legal-section h2 {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.85rem;
+}
+.legal-section h2::before { content: '// '; opacity: 0.6; }
+.legal-section p, .legal-section li {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.75;
+}
+.legal-section strong { color: var(--text-heading); }
+.legal-section a { color: var(--accent); text-decoration: none; }
+.legal-section a:hover { text-decoration: underline; }
+.legal-siret {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: var(--secondary);
+  background: var(--secondary-dim);
+  border: 1px solid rgba(0,204,255,0.2);
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.85rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+  letter-spacing: 0.05em;
+}
+.footer-legal-link {
+  display: inline-block;
+  margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+.footer-legal-link:hover { opacity: 1; color: var(--accent); }
