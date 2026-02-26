@@ -370,6 +370,7 @@ section { padding: clamp(4rem, 8vw, 7rem) 0; position: relative; z-index: 1; }
 .btn--primary:hover { box-shadow: 0 0 24px rgba(0,255,136,0.3), 0 0 48px rgba(0,255,136,0.1); }
 .btn--outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
 .btn--outline:hover { border-color: var(--accent); color: var(--accent); }
+.btn--inline-fit { width: fit-content; margin-top: 0.5rem; }
 
 /* ============================
    CARDS GRID + STAGGER
