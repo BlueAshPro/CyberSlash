@@ -234,6 +234,7 @@
     document.addEventListener('mouseleave', function () { cursor.classList.add('cursor--hidden'); });
     document.addEventListener('mouseenter', function () { cursor.classList.remove('cursor--hidden'); });
 
+<<<<<<< HEAD
     // Hover class via event delegation — évite le bug "reste en cercle après scroll"
     document.addEventListener('mouseover', function (e) {
       var el = e.target.closest('a, button, .card, input, textarea, select, [role="button"]');
@@ -248,6 +249,13 @@
     document.addEventListener('mouseleave', function () {
       cursor.classList.remove('cursor--hover');
       isHovering = false;
+=======
+    // Hover class on interactive elements
+    var interactives = document.querySelectorAll('a, button, .card, input, textarea, select');
+    interactives.forEach(function (el) {
+      el.addEventListener('mouseenter', function () { cursor.classList.add('cursor--hover'); isHovering = true; });
+      el.addEventListener('mouseleave', function () { cursor.classList.remove('cursor--hover'); isHovering = false; });
+>>>>>>> dbdcf4552cd20c5fc548a2c5512848dd9f46cfa5
     });
 
     function tick() {
@@ -309,6 +317,7 @@
      QUOTE ROTATION
      ============================ */
   var quotes = [
+<<<<<<< HEAD
     "Activez l'authentification à deux facteurs (2FA) sur tous vos comptes importants.",
     "Un mot de passe fort fait au moins 16 caractères avec chiffres, lettres et symboles.",
     "Ne cliquez jamais sur un lien dans un e-mail sans vérifier l'expéditeur.",
@@ -322,6 +331,21 @@
     "Séparez vos usages pro et perso sur des sessions ou appareils différents.",
     "Avant de publier, demandez-vous : cette info pourrait-elle être exploitée ?",
     "La sécurité est un processus continu, pas un produit à installer."
+=======
+    "Activez l'authentification a deux facteurs (2FA) sur tous vos comptes importants.",
+    "Un mot de passe fort fait au moins 16 caracteres avec chiffres, lettres et symboles.",
+    "Ne cliquez jamais sur un lien dans un email sans verifier l'expediteur.",
+    "Mettez a jour vos logiciels des qu'un correctif de securite est disponible.",
+    "Utilisez un gestionnaire de mots de passe pour ne pas reutiliser les memes.",
+    "Chiffrez vos donnees sensibles, surtout sur les appareils portables.",
+    "Le Wi-Fi public est un terrain de jeu pour les attaquants. Utilisez un VPN.",
+    "Sauvegardez regulierement vos donnees selon la regle 3-2-1.",
+    "Verifiez les permissions des applications installees sur votre telephone.",
+    "Un antivirus ne remplace pas la vigilance humaine face au phishing.",
+    "Separez vos usages pro et perso sur des sessions ou appareils differents.",
+    "Avant de publier, demandez-vous : cette info pourrait-elle etre exploitee ?",
+    "La securite est un processus continu, pas un produit a installer."
+>>>>>>> dbdcf4552cd20c5fc548a2c5512848dd9f46cfa5
   ];
   var quoteIndex = 0;
   var quoteEl = document.getElementById('quote-text');
