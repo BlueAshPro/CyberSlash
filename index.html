@@ -4,13 +4,21 @@
   <meta charset="utf-8">
   <meta name="google-site-verification" content="87RAh7hizX5A5SjtOabUJPHjV2aDdeTw3J0TDf-r3_g">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSP -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action https://formspree.io; frame-ancestors 'none';">
+
   <title>CyberSlash Solutions - Cybersécurité &amp; Développement Web</title>
   <meta name="description" content="CyberSlash Solutions : expertise en cybersécurité, développement web, diagnostic PC et formation. Protégez, créez, évoluez.">
   <meta name="keywords" content="cybersécurité, pentest, développement web, services informatiques, sécurité informatique">
-  <meta property="og:title" content="CyberSlash Solutions">
+
+  <meta property="og:title"       content="CyberSlash Solutions">
   <meta property="og:description" content="Expert en cybersécurité et services informatiques">
-  <meta property="og:url" content="https://cyberslash.netlify.app">
-  <meta property="og:type" content="website">
+  <meta property="og:url"         content="https://cyberslash.fr">
+  <meta property="og:type"        content="website">
+  <meta property="og:image"       content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230a0a0f'/%3E%3Cpath d='M32 8L50 16V32Q50 48 32 56Q14 48 14 32V16Z' fill='%2300ff88' opacity='.85'/%3E%3C/svg%3E">
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230a0a0f'/><path d='M32 8L50 16V32Q50 48 32 56Q14 48 14 32V16Z' fill='%2300ff88' opacity='.85'/><rect x='28' y='28' width='8' height='10' rx='1' fill='%230a0a0f'/><circle cx='32' cy='25' r='3.5' fill='none' stroke='%230a0a0f' stroke-width='2'/></svg>">
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -26,26 +34,24 @@
   <canvas id="rain-canvas" aria-hidden="true"></canvas>
 
   <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
-    <symbol id="ico-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
-    <symbol id="ico-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
-    <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></symbol>
-    <symbol id="ico-swords" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
-    <symbol id="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
-    <symbol id="ico-terminal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
-    <symbol id="ico-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
-    <symbol id="ico-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/></symbol>
-    <symbol id="ico-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
-    <symbol id="ico-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
-    <symbol id="ico-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
-    <symbol id="ico-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
+    <symbol id="ico-shield"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="ico-code"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="ico-wrench"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="ico-graduation"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></symbol>
+    <symbol id="ico-swords"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
+    <symbol id="ico-search"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="ico-terminal"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></symbol>
+    <symbol id="ico-user"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="ico-mail"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 7 12 13 2 7"/></symbol>
+    <symbol id="ico-send"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+    <symbol id="ico-linkedin"    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="ico-github"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></symbol>
+    <symbol id="ico-lightbulb"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
     <symbol id="ico-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
-    <symbol id="ico-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
-    <symbol id="ico-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
-    <symbol id="ico-chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></symbol>
-    <symbol id="ico-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
-    <symbol id="ico-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
-    <!-- Google "G" officiel -->
+    <symbol id="ico-menu"        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+    <symbol id="ico-x"           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="ico-folder"      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="ico-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></symbol>
     <symbol id="ico-google" viewBox="0 0 24 24">
       <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
       <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -65,10 +71,10 @@
       <svg class="ico" aria-hidden="true"><use href="#ico-menu"/></svg>
     </button>
     <ul class="nav__links" id="nav-menu" role="list">
-      <li><a href="#about" class="nav__link">À propos</a></li>
-      <li><a href="#services" class="nav__link">Services</a></li>
+      <li><a href="#about"     class="nav__link">À propos</a></li>
+      <li><a href="#services"  class="nav__link">Services</a></li>
       <li><a href="#portfolio" class="nav__link">Projets</a></li>
-      <li><a href="#contact" class="nav__link">Contact</a></li>
+      <li><a href="#contact"   class="nav__link">Contact</a></li>
     </ul>
   </nav>
 
@@ -111,8 +117,9 @@
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/about</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat profil.txt</span>
         </div>
         <header class="section-header">
-          <span class="section-header__number">01.</span>
-          <h2 id="about-title" class="section-header__title">Qui suis-je ?</h2>
+          <h2 id="about-title" class="section-header__title">
+            <span class="section-header__number">01.</span> Qui suis-je ?
+          </h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
         <div class="about-grid">
@@ -140,17 +147,12 @@
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/services</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">ls -la</span>
         </div>
         <header class="section-header">
-          <span class="section-header__number">02.</span>
-          <h2 id="services-title" class="section-header__title">Mes Services</h2>
+          <h2 id="services-title" class="section-header__title">
+            <span class="section-header__number">02.</span> Mes Services
+          </h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
         <div class="cards-grid">
-          <!--<a class="card nav-link" href="pages/cybersecurite.html" aria-label="Cybersécurité">
-            <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-shield"/></svg></div>
-            <h3 class="card__title">Cybersécurité</h3>
-            <p class="card__desc">Pentests, audits de vulnérabilités, durcissement de systèmes et réponse aux incidents. Protégez vos actifs numériques.</p>
-            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
-          </a>-->
           <a class="card nav-link" href="pages/dev-web.html" aria-label="Développement Web">
             <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-code"/></svg></div>
             <h3 class="card__title">Développement Web</h3>
@@ -169,18 +171,12 @@
             <p class="card__desc">Sensibilisation à la cybersécurité, bonnes pratiques numériques, formation aux outils et à l'hygiène informatique.</p>
             <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
           </a>
-          <a class="card nav-link" href="pages/osint-audit.html" aria-label="OSINT & Audit">
+          <a class="card nav-link" href="pages/osint-audit.html" aria-label="OSINT &amp; Audit">
             <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-search"/></svg></div>
             <h3 class="card__title">Audit d'Empreinte Numérique</h3>
             <p class="card__desc">Renseignement en sources ouvertes, cartographie, analyse d'empreinte numérique.</p>
             <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
           </a>
-          <!--<a class="card nav-link" href="pages/intervention-rapide.html" aria-label="Intervention Rapide">
-            <div class="card__icon-wrap card__icon-wrap--blue"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-monitor"/></svg></div>
-            <h3 class="card__title">Intervention Rapide</h3>
-            <p class="card__desc">Dépannage informatique à distance ou sur site. Résolution rapide de vos problèmes techniques urgents.</p>
-            <span class="card__link-hint" aria-hidden="true">En savoir plus <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
-          </a>-->
         </div>
       </div>
     </section>
@@ -191,15 +187,16 @@
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/projets</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">find . -type d</span>
         </div>
         <header class="section-header">
-          <span class="section-header__number">03.</span>
-          <h2 id="portfolio-title" class="section-header__title">Projets Réalisés</h2>
+          <h2 id="portfolio-title" class="section-header__title">
+            <span class="section-header__number">03.</span> Projets Réalisés
+          </h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
         <div class="cards-grid">
           <a class="card nav-link" href="pages/foxyhack.html" aria-label="FoxyHack">
             <div class="card__icon-wrap"><svg class="ico ico--lg" aria-hidden="true"><use href="#ico-swords"/></svg></div>
             <h3 class="card__title">FoxyHack</h3>
-            <p class="card__desc">Projet organisé par la Base aérienne 105 d’Évreux, visant à développer et déployer un SI souverain lorsque tout est dégradé.</p>
+            <p class="card__desc">Projet organisé par la Base aérienne 105 d'Évreux, visant à développer et déployer un SI souverain lorsque tout est dégradé.</p>
             <span class="card__link-hint" aria-hidden="true">Voir le projet <svg class="ico" aria-hidden="true"><use href="#ico-arrow-right"/></svg></span>
           </a>
           <a class="card nav-link" href="pages/soc-fenrir.html" aria-label="SOC Fenrir">
@@ -224,8 +221,9 @@
           <span class="terminal-prompt__user">visitor</span><span class="terminal-prompt__sep">@</span><span class="terminal-prompt__user">cyberslash</span><span class="terminal-prompt__sep">:</span><span class="terminal-prompt__path">~/contact</span><span class="terminal-prompt__sep">$&nbsp;</span><span class="terminal-prompt__cmd">cat README.md</span>
         </div>
         <header class="section-header">
-          <span class="section-header__number">04.</span>
-          <h2 id="contact-title" class="section-header__title">Contactez-moi</h2>
+          <h2 id="contact-title" class="section-header__title">
+            <span class="section-header__number">04.</span> Contactez-moi
+          </h2>
           <span class="section-header__line" aria-hidden="true"></span>
         </header>
         <div class="contact-grid">
@@ -233,7 +231,7 @@
             <p>Un projet en tête, une question de sécurité ou un besoin technique ? N'hésitez pas à me contacter. Je réponds généralement sous 24 heures.</p>
             <div class="contact__channels">
               <a href="https://g.page/r/CUMfcwvSYK27EBM" class="contact__channel" target="_blank" rel="noopener noreferrer">
-                <svg class="ico" aria-hidden="true" style="width:1.25em;height:1.25em;vertical-align:-0.2em;"><use href="#ico-google"/></svg>
+                <svg class="ico ico--google" aria-hidden="true"><use href="#ico-google"/></svg>
                 Google Business<span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
               </a>
               <a href="https://www.linkedin.com/in/killian-rio-65b879388/" class="contact__channel" target="_blank" rel="noopener noreferrer">
@@ -246,7 +244,11 @@
               </a>
             </div>
           </div>
+
           <form class="form" action="https://formspree.io/f/xdanyvov" method="POST" id="contact-form" novalidate>
+            <!-- Honeypot anti-bot -->
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="form__honeypot">
+
             <div class="form__group">
               <label for="form-name" class="form__label">Nom <span aria-hidden="true">*</span></label>
               <input type="text" id="form-name" name="name" class="form__input" autocomplete="name" required maxlength="80" placeholder="Votre nom">
@@ -255,18 +257,39 @@
               <label for="form-email" class="form__label">Email <span aria-hidden="true">*</span></label>
               <input type="email" id="form-email" name="email" class="form__input" autocomplete="email" required maxlength="120" placeholder="votre@email.com">
             </div>
+
             <div class="form__group">
-              <label for="form-subject" class="form__label">Sujet <span aria-hidden="true">*</span></label>
-              <select id="form-subject" name="subject" class="form__input form__select" required>
-                <option value="" disabled selected>-- Choisissez un sujet --</option>
-                <option value="Développement Web">🌐 Développement Web</option>
-                <option value="Diagnostic & Réparation PC">🖥️ Diagnostic &amp; Réparation PC</option>
-                <option value="Formation cybersécurité">🎓 Formation cybersécurité</option>
-                <option value="Audit d'empreinte numérique (OSINT)">🔍 Audit d'empreinte numérique</option>
-                <option value="Question générale">💬 Question générale</option>
-                <option value="Autre">📋 Autre</option>
-              </select>
+              <label class="form__label" id="subject-label">Sujet <span aria-hidden="true">*</span></label>
+              <input type="hidden" id="form-subject" name="subject">
+              <div class="custom-select" role="combobox" aria-labelledby="subject-label" aria-expanded="false" aria-haspopup="listbox" id="custom-select" tabindex="0">
+                <div class="custom-select__trigger">
+                  <span class="custom-select__icon-slot" aria-hidden="true" id="select-icon-slot"></span>
+                  <span class="custom-select__value" id="select-value">Choisissez un sujet</span>
+                  <svg class="ico custom-select__arrow" aria-hidden="true"><use href="#ico-chevron-down"/></svg>
+                </div>
+                <ul class="custom-select__list" role="listbox" aria-labelledby="subject-label" id="select-list">
+                  <li class="custom-select__option" role="option" data-value="Développement Web" data-icon="#ico-code" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-code"/></svg> Développement Web
+                  </li>
+                  <li class="custom-select__option" role="option" data-value="Diagnostic &amp; Réparation PC" data-icon="#ico-wrench" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-wrench"/></svg> Diagnostic &amp; Réparation PC
+                  </li>
+                  <li class="custom-select__option" role="option" data-value="Formation cybersécurité" data-icon="#ico-graduation" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-graduation"/></svg> Formation cybersécurité
+                  </li>
+                  <li class="custom-select__option" role="option" data-value="Audit d'empreinte numérique (OSINT)" data-icon="#ico-search" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-search"/></svg> Audit d'empreinte numérique
+                  </li>
+                  <li class="custom-select__option" role="option" data-value="Question générale" data-icon="#ico-mail" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-mail"/></svg> Question générale
+                  </li>
+                  <li class="custom-select__option" role="option" data-value="Autre" data-icon="#ico-folder" tabindex="-1">
+                    <svg class="ico" aria-hidden="true"><use href="#ico-folder"/></svg> Autre
+                  </li>
+                </ul>
+              </div>
             </div>
+
             <div class="form__group">
               <label for="form-message" class="form__label">Message <span aria-hidden="true">*</span></label>
               <textarea id="form-message" name="message" class="form__textarea" rows="5" required minlength="20" maxlength="2000" placeholder="Décrivez votre besoin en quelques mots…"></textarea>
@@ -290,8 +313,7 @@
         <span>while</span>(true) { <span>protect</span>(); <span>develop</span>(); <span>repeat</span>(); }
       </p>
       <p class="footer__copy">&copy; 2025 CyberSlash Solutions - Tous droits réservés.</p>
-      </div>
-      <a href="pages/mentions-legales.html" class="footer-legal-link" style="display:block;text-align:center;margin-top:0.5rem;">Mentions légales</a>
+      <a href="pages/mentions-legales.html" class="footer-legal-link">Mentions légales</a>
     </div>
   </footer>
 
@@ -301,7 +323,7 @@
   </aside>
 
   <a href="#" class="back-to-top" aria-label="Retour en haut de page" id="back-to-top">
-    <svg viewBox="0 0 36 36" width="36" height="36" aria-hidden="true" style="display:block;flex-shrink:0;">
+    <svg viewBox="0 0 36 36" width="36" height="36" aria-hidden="true" class="back-to-top__icon">
       <path d="M18 3 L31 8 L31 19 Q31 29 18 34 Q5 29 5 19 L5 8 Z"
             fill="rgba(0,255,136,0.08)" stroke="var(--accent,#00ff88)" stroke-width="1.5"/>
       <polyline points="11,22 18,13 25,22" fill="none"
@@ -312,10 +334,7 @@
             stroke-linecap="round"/>
     </svg>
   </a>
+
   <script src="js/main.js" defer></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> dbdcf4552cd20c5fc548a2c5512848dd9f46cfa5
