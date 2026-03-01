@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%230a0a0f'/><path d='M32 8L50 16V32Q50 48 32 56Q14 48 14 32V16Z' fill='%2300ff88' opacity='.85'/><rect x='28' y='28' width='8' height='10' rx='1' fill='%230a0a0f'/><circle cx='32' cy='25' r='3.5' fill='none' stroke='%230a0a0f' stroke-width='2'/></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOC-Fenrir - CyberSlash Solutions</title>
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <!-- SVG Sprite ---------------------------------------------------------- -->
+  <svg xmlns="http://www.w3.org/2000/svg" class="svg-sprite" aria-hidden="true">
+    <symbol id="ico-shield"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="ico-swords"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/></symbol>
+    <symbol id="ico-graduation" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"/></symbol>
+    <symbol id="ico-folder"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="ico-search"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="ico-wrench"     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="ico-lightbulb"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></symbol>
+  </svg>
+
+  <nav class="page-nav" aria-label="Navigation">
+    <a href="../index.html" class="page-nav__back">Accueil</a>
+    <a href="../index.html" class="page-nav__logo">Cyber<span>Slash</span></a>
+  </nav>
+
+  <main class="page-main">
+
+    <div class="page-header">
+      <span class="page-header__tag">// 03. Projets → SOC-Fenrir</span>
+      <h1><svg class="ico ico--lg ico--accent" aria-hidden="true"><use href="#ico-shield"/></svg> SOC-Fenrir</h1>
+      <p class="page-header__sub">Security Operations Center étudiant — projet Ynov × CyberFidelis</p>
+      <span class="page-header__line"></span>
+    </div>
+
+    <div class="event-badge">
+      <span class="badge-item"><svg class="ico ico--accent" aria-hidden="true"><use href="#ico-shield"/></svg> SECURITY OPERATIONS CENTER</span>
+      <span class="badge-item"><svg class="ico ico--secondary" aria-hidden="true"><use href="#ico-graduation"/></svg> PROJET YNOV</span>
+      <span class="badge-item"><svg class="ico ico--accent" aria-hidden="true"><use href="#ico-swords"/></svg> CYBERFIDELIS</span>
+    </div>
+
+    <div class="intro">
+      <strong>Un SOC étudiant, par des étudiants, pour la cybersécurité !</strong><br><br>
+      SOC-Fenrir est un projet ambitieux entièrement conçu et construit par des étudiants d'Ynov, membres de l'association CyberFidelis. Ce projet en constante évolution vise à créer un véritable centre opérationnel de sécurité capable de détecter, analyser et répondre aux menaces cybernétiques en temps réel.
+    </div>
+
+    <div class="soc-definition">
+      <div class="def-title">
+        <svg class="ico inline-icon" aria-hidden="true"><use href="#ico-folder"/></svg>
+        Qu'est-ce qu'un SOC ?
+      </div>
+      <div class="def-text">
+        Un <strong>SOC (Security Operations Center)</strong> est une unité centralisée qui traite les questions de sécurité sur le plan organisationnel et technique. Il regroupe des experts en cybersécurité qui surveillent, détectent, analysent et répondent aux incidents 24h/24 et 7j/7.<br><br>
+        Le SOC utilise une combinaison de technologies avancées (SIEM, EDR, threat intelligence) pour protéger les actifs numériques contre les cyberattaques, violations de données et autres menaces.
+      </div>
+    </div>
+
+    <div class="mission-highlight">
+      <span class="mission-icon">
+        <svg class="ico ico--accent" aria-hidden="true"><use href="#ico-search"/></svg>
+      </span>
+      <div class="mission-title">LA MISSION</div>
+      <div class="mission-text">
+        Construire un <strong>Security Operations Center fonctionnel</strong> entièrement géré par des étudiants. L'objectif : acquérir une expérience pratique en surveillance, détection d'incidents, analyse de menaces et réponse aux attaques dans un environnement réel.
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span class="section-icon"><svg class="ico" aria-hidden="true"><use href="#ico-wrench"/></svg></span> Technologies &amp; Outils
+      </div>
+      <div class="description-text">Le SOC-Fenrir s'appuie sur un ensemble de technologies professionnelles :</div>
+      <ul>
+        <li><strong>SIEM</strong> — centralisation et analyse des logs de sécurité</li>
+        <li><strong>IDS/IPS</strong> — détection et prévention des intrusions réseau</li>
+        <li><strong>EDR</strong> — surveillance et réponse sur les endpoints</li>
+        <li><strong>Threat Intelligence</strong> — flux de renseignement sur les menaces actives</li>
+        <li><strong>SOAR</strong> — automatisation de la réponse aux incidents</li>
+        <li><strong>Outils forensiques</strong> — investigation approfondie post-incident</li>
+      </ul>
+    </div>
+
+    <div class="section-card">
+      <div class="section-title">
+        <span class="section-icon"><svg class="ico" aria-hidden="true"><use href="#ico-lightbulb"/></svg></span> Compétences Développées
+      </div>
+      <ul>
+        <li><strong>Surveillance en temps réel</strong> — monitoring des systèmes et réseaux</li>
+        <li><strong>Analyse de logs</strong> — corrélation d'événements et détection de patterns suspects</li>
+        <li><strong>Réponse aux incidents</strong> — gestion et containment des cyberattaques</li>
+        <li><strong>Threat Hunting</strong> — recherche proactive de menaces avancées</li>
+        <li><strong>Forensique numérique</strong> — investigation post-incident</li>
+        <li><strong>Création de playbooks</strong> — documentation et standardisation des procédures</li>
+      </ul>
+    </div>
+
+    <div class="team-highlight">
+      <span class="team-icon">
+        <svg class="ico ico--accent" aria-hidden="true"><use href="#ico-swords"/></svg>
+      </span>
+      <div class="team-title">Un Projet CyberFidelis</div>
+      <div class="team-text">
+        SOC-Fenrir est porté par des étudiants Ynov membres de <strong>CyberFidelis</strong>.<br><br>
+        <strong class="text-accent">Je participe à ce projet !</strong><br>
+        Membre récent de l'équipe, je découvre progressivement comment un centre opérationnel de sécurité est structuré et fonctionne au quotidien.
+      </div>
+    </div>
+
+        <footer class="page-footer">
+      <p><strong>CyberSlash Solutions</strong> — Votre partenaire digital</p>
+      <p class="copyright-note--sm">© 2025 CyberSlash Solutions — Tous droits réservés</p>
+      <a href="mentions-legales.html" class="footer-legal-link">Mentions légales</a>
+    </footer>
+
+  </main>
+  <script src="../js/pages.js" defer></script>
+</body>
+</html>
