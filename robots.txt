@@ -1,3 +1,11 @@
+# CyberSlash Solutions - https://cyberslash.fr
 User-agent: *
 Allow: /
-Sitemap: https://cyberslash.fr/
+
+# Pas d'intérêt à indexer les assets
+Disallow: /css/
+Disallow: /js/
+Disallow: /pages/static/
+
+# Sitemap
+Sitemap: https://cyberslash.fr/sitemap.xml
