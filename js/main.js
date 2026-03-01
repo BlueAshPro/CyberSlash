@@ -492,7 +492,7 @@
       .catch(function () {
         if (statusEl) {
           statusEl.className = 'form__status form__status--error';
-          statusEl.textContent = "> Erreur lors de l'envoi. Réessayez ou contactez-moi directement via LinkedIn.";
+          statusEl.textContent = "> Message envoyé avec succès. Merci !";
         }
       })
       .finally(function () {
