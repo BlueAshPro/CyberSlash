@@ -470,30 +470,38 @@
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Envoi en cours...'; }
 
       fetch(form.action, {
-  method: 'POST',
-  body: new FormData(form),
-  headers: { 'Accept': 'application/json' }
-})
-.then(function (res) {
-  // Formspree renvoie parfois 200 ou 303, on accepte les deux
-  if (res.ok || res.status === 303) {
-    if (statusEl) {
-      statusEl.className = 'form__status form__status--success';
-      statusEl.textContent = '> Message envoyé avec succès. Merci !';
-    }
-    markSubmitted();
-    form.reset();
-    // reset du select custom
-    var valueEl = document.getElementById('select-value');
-    if (valueEl) { valueEl.textContent = 'Choisissez un sujet'; valueEl.classList.remove('has-value'); }
-    var iconSlot = document.getElementById('select-icon-slot');
-    if (iconSlot) iconSlot.innerHTML = '';
-    if (msgCounter) { msgCounter.textContent = '0 / 2000'; msgCounter.className = 'form__counter'; }
-  } else { throw new Error('status:' + res.status); }
-})
-.catch(function (err) {
-  if (statusEl) {
-    statusEl.className = 'form__status form__status--error';
-    statusEl.textContent = "> Erreur lors de l'envoi. Réessayez ou contactez-moi directement via LinkedIn.";
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      })
+      .then(function (res) {
+        if (res.ok) {
+          if (statusEl) {
+            statusEl.className = 'form__status form__status--success';
+            statusEl.textContent = '> Message envoyé avec succès. Merci !';
+          }
+          markSubmitted();
+          form.reset();
+          valueEl = document.getElementById('select-value');
+          if (valueEl) { valueEl.textContent = 'Choisissez un sujet'; valueEl.classList.remove('has-value'); }
+          var iconSlot = document.getElementById('select-icon-slot');
+          if (iconSlot) iconSlot.innerHTML = '';
+          if (msgCounter) { msgCounter.textContent = '0 / 2000'; msgCounter.className = 'form__counter'; }
+        } else { throw new Error('err'); }
+      })
+      .catch(function () {
+        if (statusEl) {
+          statusEl.className = 'form__status form__status--error';
+          statusEl.textContent = "> Erreur lors de l'envoi. Réessayez ou contactez-moi directement via LinkedIn.";
+        }
+      })
+      .finally(function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<svg class="ico" aria-hidden="true"><use href="#ico-send"/></svg> Envoyer le message';
+        }
+      });
+    });
   }
-})
+
+})();
