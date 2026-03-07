@@ -402,7 +402,7 @@ function downloadPDF() {
   doc.setFillColor(10,18,14); doc.rect(0,H-18,W,18,'F');
   doc.setFillColor(0,255,136); doc.rect(0,H-18,W,1,'F');
   doc.setFont('courier','normal'); doc.setFontSize(8); doc.setTextColor(74,106,74);
-  doc.text('cyberslash.fr  |  '+EMAIL_CONTACT, 20, H-8);
+  doc.text('cyberslash.fr', 20, H-8);
   doc.text('CyberSlash Solutions © '+new Date().getFullYear(), W-20, H-8, {align:'right'});
 
   const name = answers['nom'] ? answers['nom'].replace(/\s+/g,'_') : 'client';
@@ -438,7 +438,7 @@ function showSuccess() {
     <div class="success">
       <div class="success-icon">✅</div>
       <h2>Merci pour vos réponses !</h2>
-      <p>// Téléchargez le PDF et envoyez-le à ${EMAIL_CONTACT}<br>Je vous recontacte sous 24h pour discuter de votre projet.</p>
+      <p>// Téléchargez le PDF et renvoyez-le à l'adresse mail qui vous a envoyé ce questionnaire<br>Je vous recontacte sous 24h pour discuter de votre projet.</p>
       <div class="success-summary">${summaryHtml}</div>
       <div class="success-btns">
         <button class="btn-pdf" onclick="downloadPDF()">⬇ Télécharger le PDF</button>
@@ -446,7 +446,7 @@ function showSuccess() {
         <button class="btn-restart" onclick="restart()">Recommencer</button>
       </div>
       <div class="mail-hint">Envoyez le PDF à l'adresse mail depuis laquelle vous avez reçu ce questionnaire</div>
-      <a class="mail-cta-btn" href="mailto:${EMAIL_CONTACT}">${EMAIL_CONTACT}</a>
+      
     </div>`;
 }
 
