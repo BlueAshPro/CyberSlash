@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberSlash — Questionnaire Audit OSINT</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Oxanium:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #080c10;
+    --card: #0f1419;
+    --border: #1a2a1a;
+    --green: #00ff88;
+    --green-dim: rgba(0,255,136,0.12);
+    --green-faint: rgba(0,255,136,0.04);
+    --text: #d0e8d0;
+    --muted: #4a6a4a;
+    --blue: #00ccff;
+    --orange: #ff9500;
+    --red: #ff4466;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Oxanium', sans-serif;
+    min-height: 100vh; display: flex;
+    flex-direction: column; align-items: center;
+    justify-content: center; padding: 20px;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,255,100,0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,100,0.018) 1px, transparent 1px);
+    background-size: 40px 40px; pointer-events: none;
+  }
+  canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.25; }
+  .wrap { position: relative; z-index: 1; width: 100%; max-width: 660px; }
+  .header { text-align: center; margin-bottom: 36px; }
+  .header-logo { font-size: 22px; font-weight: 800; letter-spacing: 1px; margin-bottom: 4px; }
+  .header-logo span { color: var(--green); }
+  .header-sub { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 3px; }
+  .progress-bar { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+  .progress-track { flex: 1; height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--blue)); border-radius: 2px; transition: width 0.5s ease; }
+  .progress-label { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 2px; white-space: nowrap; }
+  .question-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 44px 40px;
+    position: relative; animation: slideUp 0.35s ease both;
+  }
+  .question-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--green), transparent);
+    border-radius: 12px 12px 0 0;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .q-number { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--green); letter-spacing: 3px; margin-bottom: 14px; opacity: 0.6; }
+  .q-text { font-size: clamp(17px, 3.5vw, 22px); font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 6px; }
+  .q-hint { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 28px; letter-spacing: 1px; }
+  .info-box { border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-family: 'Share Tech Mono', monospace; font-size: 12px; line-height: 1.7; }
+  .info-box.blue { background: rgba(0,204,255,0.06); border: 1px solid rgba(0,204,255,0.15); color: #7ab8cc; }
+  .info-box.orange { background: rgba(255,149,0,0.06); border: 1px solid rgba(255,149,0,0.2); color: #cc9a4a; }
+  .info-box.red { background: rgba(255,68,102,0.06); border: 1px solid rgba(255,68,102,0.2); color: #cc6677; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 13px 16px; border: 1px solid var(--border);
+    border-radius: 8px; cursor: pointer; transition: all 0.2s;
+    background: transparent; color: var(--text);
+    text-align: left; font-family: 'Oxanium', sans-serif;
+    font-size: 14px; width: 100%;
+  }
+  .option:hover { border-color: rgba(0,255,136,0.4); background: var(--green-faint); transform: translateX(3px); }
+  .option.selected { border-color: var(--green); background: var(--green-dim); color: #fff; }
+  .option-key { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px; flex-shrink: 0; transition: all 0.2s; }
+  .option.selected .option-key { border-color: var(--green); color: var(--green); }
+  .option-check { width: 18px; height: 18px; border: 1px solid var(--border); border-radius: 4px; margin-left: auto; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; transition: all 0.2s; color: transparent; }
+  .option.selected .option-check { background: var(--green); border-color: var(--green); color: #000; }
+  .text-input { width: 100%; background: transparent; border: none; border-bottom: 2px solid var(--border); color: #fff; font-family: 'Oxanium', sans-serif; font-size: 17px; padding: 12px 0; outline: none; transition: border-color 0.2s; }
+  .text-input:focus { border-bottom-color: var(--green); }
+  .text-input::placeholder { color: var(--muted); font-size: 14px; }
+  textarea.text-input { resize: none; min-height: 90px; border: 1px solid var(--border); border-radius: 8px; padding: 14px; margin-top: 4px; font-size: 14px; }
+  textarea.text-input:focus { border-color: var(--green); }
+  .nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+  .btn-back { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--muted); background: none; border: none; cursor: pointer; letter-spacing: 2px; transition: color 0.2s; padding: 8px 0; }
+  .btn-back:hover { color: var(--text); }
+  .btn-back:disabled { opacity: 0; pointer-events: none; }
+  .btn-next { display: flex; align-items: center; gap: 10px; background: var(--green); color: #000; border: none; border-radius: 6px; padding: 12px 24px; font-family: 'Oxanium', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: all 0.2s; }
+  .btn-next:hover { background: #00ffaa; transform: translateX(2px); }
+  .btn-hint { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 6px; text-align: right; letter-spacing: 1px; }
+  .success { text-align: center; padding: 50px 40px; background: var(--card); border: 1px solid rgba(0,255,136,0.25); border-radius: 12px; animation: slideUp 0.5s ease both; }
+  .success-icon { font-size: 44px; margin-bottom: 16px; }
+  .success h2 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .success p { color: var(--muted); font-family: 'Share Tech Mono', monospace; font-size: 12px; line-height: 1.8; margin-bottom: 24px; }
+  .success-summary { background: var(--green-faint); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: left; margin-bottom: 28px; font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text); line-height: 2; max-height: 220px; overflow-y: auto; }
+  .success-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn-pdf { background: var(--green); color: #000; border: none; border-radius: 6px; padding: 13px 28px; font-family: 'Oxanium', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+  .btn-pdf:hover { background: #00ffaa; }
+  .btn-copy { background: transparent; color: var(--green); border: 1px solid rgba(0,255,136,0.3); border-radius: 6px; padding: 13px 24px; font-family: 'Oxanium', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .btn-copy:hover { border-color: var(--green); }
+  .btn-restart { background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 6px; padding: 13px 24px; font-family: 'Oxanium', sans-serif; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .btn-restart:hover { border-color: var(--green); color: var(--green); }
+  .mail-hint { margin-top: 20px; font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--muted); letter-spacing: 1px; line-height: 1.8; }
+  .mail-cta-btn { display: inline-block; margin-top: 10px; background: var(--green-dim); border: 1px solid var(--green); color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 15px; font-weight: bold; letter-spacing: 2px; padding: 14px 28px; border-radius: 8px; text-decoration: none; transition: all 0.2s; }
+  .mail-cta-btn:hover { background: var(--green); color: #000; }
+  @media (max-width: 500px) { .question-card { padding: 32px 22px; } .success { padding: 36px 22px; } }
+</style>
+</head>
+<body>
+<canvas id="rain"></canvas>
+<div class="wrap">
+  <div class="header">
+    <div class="header-logo">Cyber<span>Slash</span></div>
+    <div class="header-sub">// QUESTIONNAIRE AUDIT OSINT</div>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-label" id="progress-label">0 / 10</div>
+  </div>
+  <div id="question-area"></div>
+</div>
+
+<script>
+const TOTAL = 10;
+const EMAIL_CONTACT = 'ash-advisory@proton.me';
+const keys = 'ABCDEFGHIJKLMNOPQRST';
+
+const questions = [
+  {
+    id: 'nom',
+    text: 'Quel est votre prénom ?',
+    hint: 'Pour personnaliser votre récapitulatif',
+    type: 'text',
+    placeholder: 'Ex: Marie'
+  },
+  {
+    id: 'cible',
+    text: 'Sur qui porte l\'audit OSINT ?',
+    hint: 'Choisissez une option',
+    type: 'single',
+    infoBox: '<strong>🔍 Rappel :</strong> L\'audit OSINT consiste à cartographier ce qui est publiquement accessible sur une personne ou une entité via des sources ouvertes (internet, réseaux sociaux, bases publiques...). Aucune intrusion, aucun accès illégal.',
+    infoType: 'blue',
+    options: [
+      'Sur moi-même (curiosité / protection)',
+      'Sur mon entreprise / ma marque',
+      'Autre (à préciser dans les infos)'
+    ]
+  },
+  {
+    id: 'objectif',
+    text: 'Quel est votre objectif principal ?',
+    hint: 'Plusieurs choix possibles',
+    type: 'multi',
+    options: [
+      'Savoir ce qu\'on trouve sur moi en ligne',
+      'Réduire mon exposition numérique',
+      'Vérifier la réputation de mon entreprise',
+      'Identifier des fuites de données personnelles',
+      'Contrôler l\'image de ma marque',
+      'Simple curiosité / test',
+      'Autre objectif'
+    ]
+  },
+  {
+    id: 'exposition',
+    text: 'Avez-vous une idée de votre exposition actuelle ?',
+    hint: 'Choisissez une option',
+    type: 'single',
+    options: [
+      'Aucune idée, c\'est pour ça que je fais appel à vous',
+      'Je pense être peu exposé(e)',
+      'Je suis assez actif(ve) en ligne',
+      'Je suis très présent(e) (réseaux, forums, pro...)',
+      'J\'ai déjà eu une mauvaise expérience (dox, harcèlement...)'
+    ]
+  },
+  {
+    id: 'plateformes',
+    text: 'Sur quelles plateformes êtes-vous présent(e) ?',
+    hint: 'Plusieurs choix possibles',
+    type: 'multi',
+    options: [
+      'Facebook', 'Instagram', 'LinkedIn', 'Twitter / X',
+      'TikTok', 'Snapchat', 'YouTube', 'GitHub',
+      'Forums / sites spécialisés', 'Aucun / très peu'
+    ]
+  },
+  {
+    id: 'infos_publiques',
+    text: 'Quelles informations vous concernent sont potentiellement publiques ?',
+    hint: 'Plusieurs choix possibles',
+    type: 'multi',
+    infoBox: '<strong>⚠️ Ces infos seront utilisées uniquement pour l\'audit.</strong> Elles ne seront pas conservées ni transmises à des tiers.',
+    infoType: 'orange',
+    options: [
+      'Nom complet',
+      'Adresse email',
+      'Numéro de téléphone',
+      'Adresse postale',
+      'Lieu de travail / entreprise',
+      'Photos personnelles',
+      'Informations familiales',
+      'Je ne sais pas ce qui est public'
+    ]
+  },
+  {
+    id: 'urgence',
+    text: 'Y a-t-il une situation particulière qui motive cet audit ?',
+    hint: 'Choisissez une option',
+    type: 'single',
+    infoBox: '<strong>🔒 Confidentialité :</strong> Toutes vos réponses sont strictement confidentielles et utilisées uniquement dans le cadre de votre audit.',
+    infoType: 'blue',
+    options: [
+      'Non, démarche préventive',
+      'Je reçois des messages suspects / harcèlement',
+      'Je pense avoir été victime de doxing',
+      'Changement de situation (emploi, rupture...)',
+      'Je veux protéger ma famille / mes enfants',
+      'Autre situation'
+    ]
+  },
+  {
+    id: 'rapport',
+    text: 'Que souhaitez-vous recevoir à l\'issue de l\'audit ?',
+    hint: 'Plusieurs choix possibles',
+    type: 'multi',
+    options: [
+      'Un rapport détaillé de ce qui est trouvé',
+      'Des recommandations pour réduire mon exposition',
+      'Une liste des données à supprimer / demander la suppression',
+      'Un appel / échange pour expliquer les résultats',
+      'Juste un résumé rapide'
+    ]
+  },
+  {
+    id: 'budget',
+    text: 'Quel est votre budget pour cet audit ?',
+    hint: 'Offre de lancement à prix libre',
+    type: 'single',
+    infoBox: '<strong>🎁 Offre de lancement :</strong> L\'audit OSINT est proposé à <strong>prix libre</strong> — vous donnez ce que vous voulez, ce que vous pouvez. C\'est une offre temporaire dans le cadre du lancement de CyberSlash Solutions.',
+    infoType: 'orange',
+    options: [
+      'Prix libre — je décide après avoir vu le résultat',
+      'Prix libre — j\'ai déjà une idée de ce que je veux donner',
+      'Je veux discuter du tarif avant',
+      'Je ne peux pas payer pour l\'instant'
+    ]
+  },
+  {
+    id: 'infos',
+    text: 'Des informations supplémentaires à partager ?',
+    hint: 'Pseudo, nom complet, liens de profils, contexte particulier...',
+    type: 'textarea',
+    placeholder: 'Ex: Mon pseudo principal est @monpseudo, j\'utilise l\'email contact@exemple.fr depuis 10 ans, je suis actif sur Reddit sous le nom...'
+  }
+];
+
+let current = 0, answers = {};
+
+function updateProgress() {
+  const pct = Math.round((current / TOTAL) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = current + ' / ' + TOTAL;
+}
+
+function render() {
+  const area = document.getElementById('question-area');
+  if (current >= questions.length) { showSuccess(); return; }
+  const q = questions[current];
+  updateProgress();
+  let inputHtml = '';
+  const infoHtml = q.infoBox ? `<div class="info-box ${q.infoType}">${q.infoBox}</div>` : '';
+
+  if (q.type === 'single') {
+    inputHtml = infoHtml + '<div class="options">' +
+      q.options.map((o, i) => `<button class="option ${answers[q.id]===o?'selected':''}" onclick="selectSingle(this,'${q.id}',${i})"><span class="option-key">${keys[i]}</span>${o}</button>`).join('') + '</div>';
+  } else if (q.type === 'multi') {
+    const sel = answers[q.id] || [];
+    inputHtml = infoHtml + '<div class="options multi">' +
+      q.options.map((o, i) => `<button class="option ${sel.includes(o)?'selected':''}" onclick="selectMulti(this,'${q.id}',${i})"><span class="option-key">${keys[i]}</span>${o}<span class="option-check">${sel.includes(o)?'✓':''}</span></button>`).join('') + '</div>';
+  } else if (q.type === 'textarea') {
+    inputHtml = `<textarea class="text-input" id="text-val" rows="4" placeholder="${q.placeholder||''}">${answers[q.id]||''}</textarea>`;
+  } else {
+    inputHtml = `<input type="text" class="text-input" id="text-val" placeholder="${q.placeholder||''}" value="${answers[q.id]||''}">`;
+  }
+
+  area.innerHTML = `<div class="question-card">
+    <div class="q-number">// QUESTION ${current+1} SUR ${TOTAL}</div>
+    <div class="q-text">${q.text}</div>
+    <div class="q-hint">${q.hint||''}</div>
+    ${inputHtml}
+    <div class="nav-btns">
+      <button class="btn-back" onclick="goBack()" ${current===0?'disabled':''}>← RETOUR</button>
+      <div>
+        <button class="btn-next" onclick="goNext()">${current===questions.length-1?'TERMINER ✓':'SUIVANT →'}</button>
+        <div class="btn-hint">${q.type==='multi'?'Plusieurs choix — cliquez Suivant quand c\'est bon':q.type==='single'?'Sélection automatique':'Tapez puis Suivant'}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function selectSingle(btn, id, idx) {
+  answers[id] = questions.find(q=>q.id===id).options[idx];
+  document.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  btn.classList.add('selected');
+  setTimeout(goNext, 280);
+}
+
+function selectMulti(btn, id, idx) {
+  const val = questions.find(q=>q.id===id).options[idx];
+  if (!answers[id]) answers[id] = [];
+  const i = answers[id].indexOf(val);
+  if (i > -1) { answers[id].splice(i,1); btn.classList.remove('selected'); btn.querySelector('.option-check').textContent=''; }
+  else { answers[id].push(val); btn.classList.add('selected'); btn.querySelector('.option-check').textContent='✓'; }
+}
+
+function goNext() {
+  const q = questions[current];
+  if ((q.type==='text'||q.type==='textarea') && document.getElementById('text-val')) {
+    answers[q.id] = document.getElementById('text-val').value;
+  }
+  current++; render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goBack() { if (current>0) { current--; render(); } }
+
+function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({orientation:'portrait', unit:'mm', format:'a4'});
+  const W=210, H=297; let y=0;
+
+  doc.setFillColor(8,12,16); doc.rect(0,0,W,H,'F');
+  doc.setFillColor(10,18,14); doc.rect(0,0,W,40,'F');
+  doc.setFillColor(0,255,136); doc.rect(0,0,W,2,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(20);
+  doc.setTextColor(0,255,136); doc.text('CyberSlash',20,18);
+  doc.setTextColor(255,255,255); doc.text(' Solutions',20+doc.getTextWidth('CyberSlash'),18);
+  doc.setFont('courier','normal'); doc.setFontSize(8);
+  doc.setTextColor(74,106,74); doc.text('// QUESTIONNAIRE AUDIT OSINT',20,28);
+  const date = new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'});
+  doc.text('Généré le '+date, W-20, 28, {align:'right'});
+  if (answers['nom']) { doc.setTextColor(200,230,210); doc.setFontSize(9); doc.text('Client : '+answers['nom'], W-20, 18, {align:'right'}); }
+
+  y=52;
+  questions.forEach((q,i) => {
+    if (!answers[q.id]) return;
+    const val = Array.isArray(answers[q.id]) ? answers[q.id] : [answers[q.id]];
+    if (y > H-40) { doc.addPage(); doc.setFillColor(8,12,16); doc.rect(0,0,W,H,'F'); y=20; }
+    doc.setFont('courier','bold'); doc.setFontSize(8); doc.setTextColor(0,255,136);
+    doc.text('Q'+(i+1)+'.', 20, y);
+    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(255,255,255);
+    const qLines = doc.splitTextToSize(q.text, W-50);
+    doc.text(qLines, 30, y); y += qLines.length*5+4;
+    val.forEach(v => {
+      if (!v||!v.trim()) return;
+      doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(200,230,210);
+      const aLines = doc.splitTextToSize('→  '+v, W-50);
+      doc.text(aLines, 32, y); y += aLines.length*5+2;
+    });
+    doc.setDrawColor(30,50,35); doc.setLineWidth(0.3);
+    doc.line(20, y+2, W-20, y+2); y+=10;
+  });
+
+  doc.setFillColor(10,18,14); doc.rect(0,H-18,W,18,'F');
+  doc.setFillColor(0,255,136); doc.rect(0,H-18,W,1,'F');
+  doc.setFont('courier','normal'); doc.setFontSize(8); doc.setTextColor(74,106,74);
+  doc.text('cyberslash.fr  |  '+EMAIL_CONTACT, 20, H-8);
+  doc.text('CyberSlash Solutions © '+new Date().getFullYear(), W-20, H-8, {align:'right'});
+  const name = answers['nom'] ? answers['nom'].replace(/\s+/g,'_') : 'client';
+  doc.save('CyberSlash_OSINT_'+name+'.pdf');
+}
+
+function copySummary() {
+  let text = '=== QUESTIONNAIRE AUDIT OSINT — CYBERSLASH SOLUTIONS ===\n\n';
+  questions.forEach(q => {
+    if (answers[q.id]) {
+      const val = Array.isArray(answers[q.id]) ? answers[q.id].join(', ') : answers[q.id];
+      text += '▶ '+q.text+'\n   → '+val+'\n\n';
+    }
+  });
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('btn-copy');
+    btn.textContent='✓ Copié !';
+    setTimeout(()=>btn.textContent='📋 Copier le texte',2000);
+  });
+}
+
+function showSuccess() {
+  document.getElementById('progress-fill').style.width='100%';
+  document.getElementById('progress-label').textContent=TOTAL+' / '+TOTAL;
+  let summaryHtml='';
+  questions.forEach(q => {
+    if (answers[q.id]) {
+      const val = Array.isArray(answers[q.id]) ? answers[q.id].join(', ') : answers[q.id];
+      summaryHtml += `<span style="color:#00ff88">▶ ${q.text}</span><br>&nbsp;&nbsp;→ ${val}<br><br>`;
+    }
+  });
+  document.getElementById('question-area').innerHTML = `
+    <div class="success">
+      <div class="success-icon">🔍</div>
+      <h2>Demande d'audit reçue !</h2>
+      <p>// Téléchargez le PDF et envoyez-le à l'adresse mail depuis laquelle vous avez reçu ce questionnaire.<br>Je vous recontacte sous 24h.</p>
+      <div class="success-summary">${summaryHtml}</div>
+      <div class="success-btns">
+        <button class="btn-pdf" onclick="downloadPDF()">⬇ Télécharger le PDF</button>
+        <button class="btn-copy" id="btn-copy" onclick="copySummary()">📋 Copier le texte</button>
+        <button class="btn-restart" onclick="restart()">Recommencer</button>
+      </div>
+      <div class="mail-hint">Renvoyez ce PDF à l'adresse mail depuis laquelle vous avez reçu ce questionnaire</div>
+      <a class="mail-cta-btn" href="mailto:${EMAIL_CONTACT}">${EMAIL_CONTACT}</a>
+    </div>`;
+}
+
+function restart() { current=0; answers={}; render(); }
+
+(function() {
+  const canvas=document.getElementById('rain');
+  const ctx=canvas.getContext('2d');
+  const chars='01アイウエオ<>{}|/\\#$%&';
+  let cols,drops;
+  function resize() {
+    canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+    cols=Math.floor(canvas.width/18);
+    drops=new Array(cols).fill(0).map(()=>Math.random()*-50);
+  }
+  resize(); window.addEventListener('resize',resize);
+  function draw() {
+    ctx.fillStyle='rgba(8,12,16,0.05)'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.font='12px monospace'; ctx.fillStyle='#00ff88';
+    for(let i=0;i<drops.length;i++){
+      const y=drops[i]*18;
+      if(y>0) ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*18,y);
+      if(y>canvas.height&&Math.random()>0.975) drops[i]=-Math.random()*20;
+      drops[i]++;
+    }
+  }
+  setInterval(draw,60);
+})();
+
+render();
+</script>
+</body>
+</html>
